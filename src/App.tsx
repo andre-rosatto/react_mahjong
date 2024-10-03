@@ -1,13 +1,17 @@
 import { useState } from "react";
-import Tile, { TileProps, TileStatus } from "./components/Tile";
+import Tile, { TileStatus } from "./components/Tile";
+import { TileData } from "./typings/types.d";
+
+const GRID_SIZE_X = 75;
+const GRID_SIZE_Y = 50;
 
 function App() {
-	const [tiles, setTiles] = useState<Array<Omit<TileProps, 'onClick'>>>([
-		{ layer: 0, gridX: 0, gridY: 0, code: 0, id: 0, selected: false, status: TileStatus.free},
-		{ layer: 0, gridX: 0, gridY: 2, code: 0, id: 1, selected: false, status: TileStatus.free},
-		{ layer: 0, gridX: 1, gridY: 1, code: 1, id: 2, selected: false, status: TileStatus.blocked},
-		{ layer: 0, gridX: 2, gridY: 0, code: 1, id: 3, selected: false, status: TileStatus.free},
-		{ layer: 0, gridX: 2, gridY: 2, code: 2, id: 4, selected: false, status: TileStatus.free},
+	const [tiles, setTiles] = useState<Array<TileData>>([
+		{ layer: 0, gridX: 0, gridY: 0, code: 0},
+		{ layer: 0, gridX: 0, gridY: 2, code: 0},
+		{ layer: 0, gridX: 1, gridY: 1, code: 1},
+		{ layer: 0, gridX: 2, gridY: 0, code: 1},
+		{ layer: 0, gridX: 2, gridY: 2, code: 2},
 	]);
 
 	const handleTileClick = (id: number): void => {
@@ -18,16 +22,17 @@ function App() {
 
 			{/* board */}
 			<div className="relative m-8">
-				{tiles.map(tile =>
+				{tiles.map((tile, idx) =>
 					<Tile
-						key={tile.id}
-						layer={tile.layer}
-						gridX={tile.gridX}
-						gridY={tile.gridY}
+						key={idx}
+						x={tile.gridX * GRID_SIZE_X}
+						y={tile.gridY * GRID_SIZE_Y}
+						width={GRID_SIZE_X}
+						height={GRID_SIZE_Y * 2}
 						code={tile.code}
-						id={tile.id}
-						status={tile.status}
-						selected={tile.selected}
+						id={idx}
+						status={TileStatus.free}
+						selected={false}
 						onClick={handleTileClick}
 					/>)}
 			</div>

@@ -5,9 +5,10 @@ export enum TileStatus {
 }
 
 export interface TileProps {
-	layer: number;
-	gridX: number;
-	gridY: number;
+	x: number;
+	y: number;
+	width: number;
+	height: number;
 	code: number;
 	id: number;
 	status: TileStatus;
@@ -15,7 +16,7 @@ export interface TileProps {
 	onClick: (id: number) => void;
 }
 
-export default function Tile({layer, gridX, gridY, code, id, status, onClick}: TileProps) {
+export default function Tile({x, y, width, height, code, id, status, onClick}: TileProps) {
 	const getClasses = (): string => {
 		switch (status) {
 			case TileStatus.blocked:
@@ -28,8 +29,10 @@ export default function Tile({layer, gridX, gridY, code, id, status, onClick}: T
 	}
 
 	const style = {
-		left: `${2.5 * gridX}rem`,
-		top: `${2 * gridY}rem`
+		left: `${x}px`,
+		top: `${y}px`,
+		width: `${width}px`,
+		height: `${height}px`
 	}
 
 	return (
