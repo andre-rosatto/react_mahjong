@@ -1,6 +1,6 @@
 export interface TileData {
+	x: number;
+	y: number;
 	layer: number;
-	gridX: number;
-	gridY: number;
 	code: number;
 }
