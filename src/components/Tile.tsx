@@ -1,5 +1,3 @@
-import '../css/Tile.css';
-
 export type TileStatus = 'free' | 'selected' | 'blocked' | 'matched';
 
 export interface TileProps {
@@ -35,7 +33,7 @@ export default function Tile({x, y, layer, width, height, depth, code, id, statu
 			aspectRatio: width / (height + depth)
     },
 		overlay: {
-			backgroundColor: status === 'selected' ? 'white' : 'black'
+			backgroundColor: status === 'selected' ? 'rgba(255, 255, 255, .25)' : 'rgba(0, 0, 0, .6)'
 		}
   };
 
@@ -50,7 +48,7 @@ export default function Tile({x, y, layer, width, height, depth, code, id, statu
       {/* image */}
       <div style={style.img} className='absolute w-full' />
 			{/* overlay */}
-			{(status === 'selected' || status === 'blocked') && <div className='absolute w-full h-full opacity-50' style={style.overlay}></div>}
+			{(status === 'selected' || status === 'blocked') && <div className='absolute w-full h-full' style={style.overlay}></div>}
     </div>
   );
 }
