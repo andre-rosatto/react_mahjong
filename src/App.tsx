@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Tile from "./components/Tile";
+import Tile, { TileStatus } from "./components/Tile";
 import { TileData } from "./typings/types.d";
 
 const TILE_WIDTH = 80;
@@ -20,22 +20,46 @@ const level = [
 
 function App() {
 	const [tiles, setTiles] = useState<Array<TileData>>([]);
+	const [selectedId, setSelectedId] = useState<null | number>(null);
 
 	useEffect(() => {
 		const newTiles: Array<TileData> = [];
-		level.forEach(item => {
+		level.forEach((item, idx) => {
 			newTiles.push({
 				x: item.gridX * TILE_WIDTH,
 				y: item.gridY * TILE_HEIGHT,
 				layer: item.layer,
-				code: 0
+				id: idx,
+				code: 0,
+				matched: false
 			});
 		});
 		setTiles(newTiles);
 	}, []);
 
 	const handleTileClick = (id: number): void => {
-		//
+		if (id === selectedId) {
+			// deselect current tile
+			setSelectedId(null);
+		} else {
+			if (selectedId) {
+				// check match
+				const selectedTiles = tiles.filter(t => t.id === id || t.id === selectedId);
+				if (selectedTiles.length === 2 && selectedTiles[0].code === selectedTiles[1].code) {
+					// tiles match
+					console.log('match');
+					selectedTiles[0].matched = true;
+					selectedTiles[1].matched = true;
+					setSelectedId(null);
+				} else {
+					// tiles don't match
+					setSelectedId(id);
+				}
+			} else {
+				// select first tile
+				setSelectedId(id);
+			}
+		}
 	}
 
 	const isTileFree = (tile: TileData): boolean => {
@@ -50,23 +74,28 @@ function App() {
 		);
 	}
 
+	const getTileStatus = (tile: TileData): TileStatus => {
+		if (tile.matched) return 'matched';
+		if (tile.id === selectedId) return 'selected';
+		return isTileFree(tile) ? 'free' : 'blocked';
+	}
+
   return (
     <div>
 
 			{/* board */}
 			<div className="relative m-8">
-				{tiles.map((tile, idx) =>
+				{tiles.map(tile =>
 					<Tile
-						key={idx}
+						key={tile.id}
 						x={tile.x}
 						y={tile.y}
 						layer={tile.layer}
 						width={TILE_WIDTH}
 						height={TILE_HEIGHT}
 						code={tile.code}
-						id={idx}
-						free={isTileFree(tile)}
-						selected={false}
+						id={tile.id}
+						status={getTileStatus(tile)}
 						onClick={handleTileClick}
 					/>)}
 			</div>

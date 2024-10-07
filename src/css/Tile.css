@@ -1,0 +1,19 @@
+.Tile.selected {
+  background-color: lightcoral;
+  cursor: pointer;
+}
+
+.Tile.free {
+  background-color: red;
+  cursor: pointer;
+}
+
+.Tile.blocked {
+  background-color: darkred;
+  pointer-events: none;
+}
+
+.Tile.matched {
+  background-color: green;
+  pointer-events: none;
+}
