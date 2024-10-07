@@ -46,13 +46,8 @@ function App() {
     } else {
       if (selectedId) {
         // check match
-        const selectedTiles = tiles.filter(
-          t => t.id === id || t.id === selectedId
-        );
-        if (
-          selectedTiles.length === 2 &&
-          selectedTiles[0].code === selectedTiles[1].code
-        ) {
+        const selectedTiles = tiles.filter(t => t.id === id || t.id === selectedId);
+        if (selectedTiles.length === 2 && selectedTiles[0].code === selectedTiles[1].code) {
           // tiles match
           selectedTiles[0].matched = true;
           selectedTiles[1].matched = true;
@@ -70,33 +65,14 @@ function App() {
 
   const isTileFree = (tile: TileData): boolean => {
     // check on top
-    if (
-      tiles.some(
-        t =>
-          t.layer - tile.layer >= 1 &&
-          Math.abs(t.x - tile.x) < TILE_WIDTH &&
-          Math.abs(t.y - tile.y) < TILE_HEIGHT
-      )
-    ) {
+    if (tiles.some(t => t.layer - tile.layer >= 1 && Math.abs(t.x - tile.x) < TILE_WIDTH && Math.abs(t.y - tile.y) < TILE_HEIGHT)) {
       return false;
     }
     // chech side
     return !(
-      tiles.some(
-        t =>
-          t.layer === tile.layer &&
-          t.x < tile.x &&
-          tile.x - t.x <= TILE_WIDTH &&
-          Math.abs(t.y - tile.y) < TILE_HEIGHT
-      ) &&
-      tiles.some(
-        t =>
-          t.layer === tile.layer &&
-          t.x > tile.x &&
-          t.x - tile.x <= TILE_WIDTH &&
-          Math.abs(t.y - tile.y) < TILE_HEIGHT
-      )
-    );
+      tiles.some(t => t.layer === tile.layer && t.x < tile.x && tile.x - t.x <= TILE_WIDTH && Math.abs(t.y - tile.y) < TILE_HEIGHT)
+			&& tiles.some(t => t.layer === tile.layer && t.x > tile.x && t.x - tile.x <= TILE_WIDTH && Math.abs(t.y - tile.y) < TILE_HEIGHT)
+		);
   };
 
   const getTileStatus = (tile: TileData): TileStatus => {
