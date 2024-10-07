@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import Tile, { TileStatus } from './components/Tile';
 import { TileData } from './typings/types.d';
+import tileset from './assets/tiles.webp';
 
 const TILE_WIDTH = 80;
 const TILE_HEIGHT = 100;
+const TILE_DEPTH = 15;
 
 const level = [
   { gridX: 0, gridY: 0, layer: 0 },
@@ -14,7 +16,7 @@ const level = [
   { gridX: 3, gridY: 2, layer: 0 },
   { gridX: 1, gridY: 2, layer: 0 },
   { gridX: 0, gridY: 0.5, layer: 1 },
-  { gridX: 0, gridY: 3, layer: 1 },
+  { gridX: 0, gridY: 3, layer: 0 },
   { gridX: 3, gridY: 0.5, layer: 0 },
 ];
 
@@ -30,7 +32,7 @@ function App() {
         y: item.gridY * TILE_HEIGHT,
         layer: item.layer,
         id: idx,
-        code: 0,
+        code: 24,
         matched: false,
       });
     });
@@ -115,9 +117,11 @@ function App() {
             layer={tile.layer}
             width={TILE_WIDTH}
             height={TILE_HEIGHT}
+						depth={TILE_DEPTH}
             code={tile.code}
             id={tile.id}
             status={getTileStatus(tile)}
+            tileset={tileset}
             onClick={handleTileClick}
           />
         ))}
@@ -127,4 +131,3 @@ function App() {
 }
 
 export default App;
-
