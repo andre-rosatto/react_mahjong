@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Tile, { TileStatus } from './components/Tile';
 import { TileData } from './typings/types.d';
 import tileset from './assets/tiles.webp';
+import useRandom from './hooks/useRandom';
 
 const TILE_WIDTH = 80;
 const TILE_HEIGHT = 100;
@@ -19,10 +20,10 @@ const level = [
   { gridX: 0, gridY: 3, layer: 0 },
   { gridX: 3, gridY: 0.5, layer: 0 },
 ];
-
 function App() {
   const [tiles, setTiles] = useState<Array<TileData>>([]);
   const [selectedId, setSelectedId] = useState<null | number>(null);
+	const {setSeed, getRandom} = useRandom(new Date().getDate() + new Date().getMonth() / 100 + new Date().getFullYear() / 1000000);
 
   useEffect(() => {
     const newTiles: Array<TileData> = [];
