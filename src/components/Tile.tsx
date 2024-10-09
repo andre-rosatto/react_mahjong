@@ -25,7 +25,7 @@ export default function Tile({gridX, gridY, layer, code, id, status, tileset, on
 			position: 'absolute',
 			boxSizing: 'content-box',
 			border: `1px solid ${status === 'selected' ? 'red' : 'black'}`,
-			borderRadius: '0.25rem',
+			borderRadius: '8%',
 			overflow: 'hidden',
       left: `${gridX * 100 / 15}%`,
       top: `${gridY * 1.25 * 100 / 15 - layer * 1.25 * 100 / 15 / 6}%`,
