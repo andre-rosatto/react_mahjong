@@ -1,108 +1,199 @@
-import { useEffect, useState } from 'react';
-import Tile, { TileStatus } from './components/Tile';
-import { TileData } from './typings/types.d';
+import { TilePosition } from './typings/types.d';
 import tileset from './assets/tiles.webp';
 import useRandom from './hooks/useRandom';
+import Board from './components/Board';
+import { useState } from 'react';
 
-const TILE_WIDTH = 80;
-const TILE_HEIGHT = 100;
-const TILE_DEPTH = 15;
-
-const level = [
-  { gridX: 0, gridY: 0, layer: 0 },
-  { gridX: 0, gridY: 1, layer: 0 },
-  { gridX: 1, gridY: 0.5, layer: 0 },
+const LEVEL: Array<TilePosition> = [
+	// layer 0
+  { gridX: 1, gridY: 0, layer: 0 },
   { gridX: 2, gridY: 0, layer: 0 },
-  { gridX: 2, gridY: 1, layer: 0 },
+  { gridX: 3, gridY: 0, layer: 0 },
+  { gridX: 4, gridY: 0, layer: 0 },
+  { gridX: 5, gridY: 0, layer: 0 },
+  { gridX: 6, gridY: 0, layer: 0 },
+  { gridX: 7, gridY: 0, layer: 0 },
+  { gridX: 8, gridY: 0, layer: 0 },
+  { gridX: 9, gridY: 0, layer: 0 },
+  { gridX: 10, gridY: 0, layer: 0 },
+  { gridX: 11, gridY: 0, layer: 0 },
+  { gridX: 12, gridY: 0, layer: 0 },
+
+  { gridX: 3, gridY: 1, layer: 0 },
+  { gridX: 4, gridY: 1, layer: 0 },
+  { gridX: 5, gridY: 1, layer: 0 },
+  { gridX: 6, gridY: 1, layer: 0 },
+  { gridX: 7, gridY: 1, layer: 0 },
+  { gridX: 8, gridY: 1, layer: 0 },
+  { gridX: 9, gridY: 1, layer: 0 },
+  { gridX: 10, gridY: 1, layer: 0 },
+
+  { gridX: 2, gridY: 2, layer: 0 },
   { gridX: 3, gridY: 2, layer: 0 },
-  { gridX: 1, gridY: 2, layer: 0 },
-  { gridX: 0, gridY: 0.5, layer: 1 },
-  { gridX: 0, gridY: 3, layer: 0 },
-  { gridX: 3, gridY: 0.5, layer: 0 },
+  { gridX: 4, gridY: 2, layer: 0 },
+  { gridX: 5, gridY: 2, layer: 0 },
+  { gridX: 6, gridY: 2, layer: 0 },
+  { gridX: 7, gridY: 2, layer: 0 },
+  { gridX: 8, gridY: 2, layer: 0 },
+  { gridX: 9, gridY: 2, layer: 0 },
+  { gridX: 10, gridY: 2, layer: 0 },
+  { gridX: 11, gridY: 2, layer: 0 },
+
+  { gridX: 1, gridY: 3, layer: 0 },
+  { gridX: 2, gridY: 3, layer: 0 },
+  { gridX: 3, gridY: 3, layer: 0 },
+  { gridX: 4, gridY: 3, layer: 0 },
+  { gridX: 5, gridY: 3, layer: 0 },
+  { gridX: 6, gridY: 3, layer: 0 },
+  { gridX: 7, gridY: 3, layer: 0 },
+  { gridX: 8, gridY: 3, layer: 0 },
+  { gridX: 9, gridY: 3, layer: 0 },
+  { gridX: 10, gridY: 3, layer: 0 },
+  { gridX: 11, gridY: 3, layer: 0 },
+  { gridX: 12, gridY: 3, layer: 0 },
+
+  { gridX: 0, gridY: 3.5, layer: 0 },
+  { gridX: 13, gridY: 3.5, layer: 0 },
+  { gridX: 14, gridY: 3.5, layer: 0 },
+
+  { gridX: 1, gridY: 4, layer: 0 },
+  { gridX: 2, gridY: 4, layer: 0 },
+  { gridX: 3, gridY: 4, layer: 0 },
+  { gridX: 4, gridY: 4, layer: 0 },
+  { gridX: 5, gridY: 4, layer: 0 },
+  { gridX: 6, gridY: 4, layer: 0 },
+  { gridX: 7, gridY: 4, layer: 0 },
+  { gridX: 8, gridY: 4, layer: 0 },
+  { gridX: 9, gridY: 4, layer: 0 },
+  { gridX: 10, gridY: 4, layer: 0 },
+  { gridX: 11, gridY: 4, layer: 0 },
+  { gridX: 12, gridY: 4, layer: 0 },
+
+  { gridX: 2, gridY: 5, layer: 0 },
+  { gridX: 3, gridY: 5, layer: 0 },
+  { gridX: 4, gridY: 5, layer: 0 },
+  { gridX: 5, gridY: 5, layer: 0 },
+  { gridX: 6, gridY: 5, layer: 0 },
+  { gridX: 7, gridY: 5, layer: 0 },
+  { gridX: 8, gridY: 5, layer: 0 },
+  { gridX: 9, gridY: 5, layer: 0 },
+  { gridX: 10, gridY: 5, layer: 0 },
+  { gridX: 11, gridY: 5, layer: 0 },
+
+	{ gridX: 3, gridY: 6, layer: 0 },
+  { gridX: 4, gridY: 6, layer: 0 },
+  { gridX: 5, gridY: 6, layer: 0 },
+  { gridX: 6, gridY: 6, layer: 0 },
+  { gridX: 7, gridY: 6, layer: 0 },
+  { gridX: 8, gridY: 6, layer: 0 },
+  { gridX: 9, gridY: 6, layer: 0 },
+  { gridX: 10, gridY: 6, layer: 0 },
+
+	{ gridX: 1, gridY: 7, layer: 0 },
+  { gridX: 2, gridY: 7, layer: 0 },
+  { gridX: 3, gridY: 7, layer: 0 },
+  { gridX: 4, gridY: 7, layer: 0 },
+  { gridX: 5, gridY: 7, layer: 0 },
+  { gridX: 6, gridY: 7, layer: 0 },
+  { gridX: 7, gridY: 7, layer: 0 },
+  { gridX: 8, gridY: 7, layer: 0 },
+  { gridX: 9, gridY: 7, layer: 0 },
+  { gridX: 10, gridY: 7, layer: 0 },
+  { gridX: 11, gridY: 7, layer: 0 },
+  { gridX: 12, gridY: 7, layer: 0 },
+
+	// layer 1
+  { gridX: 4, gridY: 1, layer: 1 },
+  { gridX: 5, gridY: 1, layer: 1 },
+  { gridX: 6, gridY: 1, layer: 1 },
+  { gridX: 7, gridY: 1, layer: 1 },
+  { gridX: 8, gridY: 1, layer: 1 },
+  { gridX: 9, gridY: 1, layer: 1 },
+
+  { gridX: 4, gridY: 2, layer: 1 },
+  { gridX: 5, gridY: 2, layer: 1 },
+  { gridX: 6, gridY: 2, layer: 1 },
+  { gridX: 7, gridY: 2, layer: 1 },
+  { gridX: 8, gridY: 2, layer: 1 },
+  { gridX: 9, gridY: 2, layer: 1 },
+
+  { gridX: 4, gridY: 3, layer: 1 },
+  { gridX: 5, gridY: 3, layer: 1 },
+  { gridX: 6, gridY: 3, layer: 1 },
+  { gridX: 7, gridY: 3, layer: 1 },
+  { gridX: 8, gridY: 3, layer: 1 },
+  { gridX: 9, gridY: 3, layer: 1 },
+
+  { gridX: 4, gridY: 4, layer: 1 },
+  { gridX: 5, gridY: 4, layer: 1 },
+  { gridX: 6, gridY: 4, layer: 1 },
+  { gridX: 7, gridY: 4, layer: 1 },
+  { gridX: 8, gridY: 4, layer: 1 },
+  { gridX: 9, gridY: 4, layer: 1 },
+
+  { gridX: 4, gridY: 5, layer: 1 },
+  { gridX: 5, gridY: 5, layer: 1 },
+  { gridX: 6, gridY: 5, layer: 1 },
+  { gridX: 7, gridY: 5, layer: 1 },
+  { gridX: 8, gridY: 5, layer: 1 },
+  { gridX: 9, gridY: 5, layer: 1 },
+
+  { gridX: 4, gridY: 6, layer: 1 },
+  { gridX: 5, gridY: 6, layer: 1 },
+  { gridX: 6, gridY: 6, layer: 1 },
+  { gridX: 7, gridY: 6, layer: 1 },
+  { gridX: 8, gridY: 6, layer: 1 },
+  { gridX: 9, gridY: 6, layer: 1 },
+
+	// layer 2
+  { gridX: 5, gridY: 2, layer: 2 },
+  { gridX: 6, gridY: 2, layer: 2 },
+  { gridX: 7, gridY: 2, layer: 2 },
+  { gridX: 8, gridY: 2, layer: 2 },
+
+  { gridX: 5, gridY: 3, layer: 2 },
+  { gridX: 6, gridY: 3, layer: 2 },
+  { gridX: 7, gridY: 3, layer: 2 },
+  { gridX: 8, gridY: 3, layer: 2 },
+
+  { gridX: 5, gridY: 4, layer: 2 },
+  { gridX: 6, gridY: 4, layer: 2 },
+  { gridX: 7, gridY: 4, layer: 2 },
+  { gridX: 8, gridY: 4, layer: 2 },
+
+  { gridX: 5, gridY: 5, layer: 2 },
+  { gridX: 6, gridY: 5, layer: 2 },
+  { gridX: 7, gridY: 5, layer: 2 },
+  { gridX: 8, gridY: 5, layer: 2 },
+
+	// layer 3
+  { gridX: 6, gridY: 3, layer: 3 },
+  { gridX: 7, gridY: 3, layer: 3 },
+
+  { gridX: 6, gridY: 4, layer: 3 },
+  { gridX: 7, gridY: 4, layer: 3 },
+	
+	// layer 4
+  { gridX: 6.5, gridY: 3.5, layer: 4 },
 ];
 function App() {
-  const [tiles, setTiles] = useState<Array<TileData>>([]);
-  const [selectedId, setSelectedId] = useState<null | number>(null);
 	const {setSeed, getRandom} = useRandom(new Date().getDate() + new Date().getMonth() / 100 + new Date().getFullYear() / 1000000);
-
-  useEffect(() => {
-    const newTiles: Array<TileData> = [];
-    level.forEach((item, idx) => {
-      newTiles.push({
-        x: item.gridX * TILE_WIDTH,
-        y: item.gridY * TILE_HEIGHT,
-        layer: item.layer,
-        id: idx,
-        code: 24,
-        matched: false,
-      });
-    });
-    setTiles(newTiles);
-  }, []);
-
-  const handleTileClick = (id: number): void => {
-    if (id === selectedId) {
-      // deselect current tile
-      setSelectedId(null);
-    } else {
-      if (selectedId) {
-        // check match
-        const selectedTiles = tiles.filter(t => t.id === id || t.id === selectedId);
-        if (selectedTiles.length === 2 && selectedTiles[0].code === selectedTiles[1].code) {
-          // tiles match
-          selectedTiles[0].matched = true;
-          selectedTiles[1].matched = true;
-          setSelectedId(null);
-        } else {
-          // tiles don't match
-          setSelectedId(id);
-        }
-      } else {
-        // select first tile
-        setSelectedId(id);
-      }
-    }
-  };
-
-  const isTileFree = (tile: TileData): boolean => {
-    // check on top
-    if (tiles.some(t => t.layer - tile.layer >= 1 && Math.abs(t.x - tile.x) < TILE_WIDTH && Math.abs(t.y - tile.y) < TILE_HEIGHT)) {
-      return false;
-    }
-    // chech side
-    return !(
-      tiles.some(t => t.layer === tile.layer && t.x < tile.x && tile.x - t.x <= TILE_WIDTH && Math.abs(t.y - tile.y) < TILE_HEIGHT)
-			&& tiles.some(t => t.layer === tile.layer && t.x > tile.x && t.x - tile.x <= TILE_WIDTH && Math.abs(t.y - tile.y) < TILE_HEIGHT)
-		);
-  };
-
-  const getTileStatus = (tile: TileData): TileStatus => {
-    if (tile.matched) return 'matched';
-    if (tile.id === selectedId) return 'selected';
-    return isTileFree(tile) ? 'free' : 'blocked';
-  };
+	const [level, setLevel] = useState<Array<TilePosition>>(LEVEL);
 
   return (
-    <div>
+    <div className='p-2'>
       {/* board */}
-      <div className='relative m-8'>
-        {tiles.map(tile => (
-          <Tile
-            key={tile.id}
-            x={tile.x}
-            y={tile.y}
-            layer={tile.layer}
-            width={TILE_WIDTH}
-            height={TILE_HEIGHT}
-						depth={TILE_DEPTH}
-            code={tile.code}
-            id={tile.id}
-            status={getTileStatus(tile)}
-            tileset={tileset}
-            onClick={handleTileClick}
-          />
-        ))}
-      </div>
+			<Board tileset={tileset} level={level} />
+			<p
+				className='absolute text-white bottom-0'
+				onClick={() => {
+					console.log('click');
+					
+					setLevel([
+						{gridX: 5, gridY: 5, layer: 0}
+					]);
+				}}
+			>click</p>
     </div>
   );
 }
