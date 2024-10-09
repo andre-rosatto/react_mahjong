@@ -23,7 +23,7 @@ export default function Tile({gridX, gridY, layer, code, id, status, tileset, on
 	} = {
     base: {
 			position: 'absolute',
-			boxSizing: 'content-box',
+			boxSizing: 'border-box',
 			border: `1px solid ${status === 'selected' ? 'red' : 'black'}`,
 			borderRadius: '8%',
 			overflow: 'hidden',
