@@ -7,17 +7,13 @@ interface IUseRandom {
 
 export default function useRandom(seed: number): IUseRandom {
 	const seedRef = useRef<number>(seed);
-	const generator = useRef<() => number>(SimpleFastCounter32());
+	const generator = useRef<() => number>(Mulberry32());
 	
-	// console.log('render');
-
 	const setSeed = (seed: number) => {
 		seedRef.current = seed;
 	}
 
-	function SimpleFastCounter32(): () => number {
-		// console.log('seed', seedRef.current);
-		
+	function Mulberry32(): () => number {		
 		return () => {
 			let for_bit32_mul = seedRef.current += 0x6D2B79F5;
 			let cast32_one = for_bit32_mul ^ for_bit32_mul >>> 15;
