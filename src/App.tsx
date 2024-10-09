@@ -1,6 +1,6 @@
 import { TilePosition } from './typings/types.d';
 import tileset from './assets/tiles.webp';
-import useRandom from './hooks/useRandom';
+// import useRandom from './hooks/useRandom';
 import Board from './components/Board';
 import { useState } from 'react';
 
@@ -177,7 +177,7 @@ const LEVEL: Array<TilePosition> = [
   { gridX: 6.5, gridY: 3.5, layer: 4 },
 ];
 function App() {
-	const {setSeed, getRandom} = useRandom(new Date().getDate() + new Date().getMonth() / 100 + new Date().getFullYear() / 1000000);
+	// const {setSeed, getRandom} = useRandom(new Date().getDate() + new Date().getMonth() / 100 + new Date().getFullYear() / 1000000);
 	const [level, setLevel] = useState<Array<TilePosition>>(LEVEL);
 
   return (

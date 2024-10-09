@@ -1,4 +1,4 @@
-import { CSSProperties, useEffect, useRef, useState } from "react";
+import { CSSProperties, useEffect, useState } from "react";
 import { TileData, TilePosition } from "../typings/types";
 import Tile, { TileStatus } from "./Tile";
 
@@ -10,7 +10,6 @@ export interface BoardProps {
 export default function Board({tileset, level}: BoardProps) {
 	const [tiles, setTiles] = useState<Array<TileData>>([]);
   const [selectedId, setSelectedId] = useState<null | number>(null);
-	const board = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		setTiles(level.map((pos, idx) => {
@@ -24,14 +23,6 @@ export default function Board({tileset, level}: BoardProps) {
 			}
 		}));
   }, [level]);
-
-	useEffect(() => {
-		const resize = () => {
-			console.log('resize');
-		}
-		board.current?.addEventListener('resize', resize);
-		return () => board.current?.removeEventListener('resize', resize);
-	}, [board]);
 
 	const handleTileClick = (id: number): void => {
     if (id === selectedId) {
@@ -57,21 +48,16 @@ export default function Board({tileset, level}: BoardProps) {
     }
   };
 
-	const isTileFree = (tile: TileData): boolean => {
-		return true;
-		// const WIDTH = board.current ? board.current.offsetWidth / 15 : window.screen.width / 15;
-		// console.log(WIDTH);
-		
-		// const tileHeight = WIDTH * 1.25;
-    // // check on top
-    // if (tiles.some(t => t.layer - tile.layer >= 1 && Math.abs(t.x - tile.x) < WIDTH && Math.abs(t.y - tile.y) < tileHeight)) {
-    //   return false;
-    // }
-    // // chech side
-    // return !(
-    //   tiles.some(t => t.layer === tile.layer && t.x < tile.x && tile.x - t.x <= WIDTH && Math.abs(t.y - tile.y) < tileHeight)
-		// 	&& tiles.some(t => t.layer === tile.layer && t.x > tile.x && t.x - tile.x <= WIDTH && Math.abs(t.y - tile.y) < tileHeight)
-		// );
+	const isTileFree = (tile: TileData): boolean => {		
+		// check on top
+		if (tiles.some(t => t.layer - tile.layer >= 1 && Math.abs(t.gridX - tile.gridX) < 1 && Math.abs(t.gridY - tile.gridY) < 1)) {
+			return false;
+		}
+		// check sideways
+		return !(
+			tiles.some(t => t.layer === tile.layer && t.gridX < tile.gridX && tile.gridX - t.gridX <= 1 && Math.abs(t.gridY - tile.gridY) < 1)
+			&& tiles.some(t => t.layer === tile.layer && t.gridX > tile.gridX && t.gridX - tile.gridX <= 1 && Math.abs(t.gridY - tile.gridY) < 1)
+		);
   };
 
   const getTileStatus = (tile: TileData): TileStatus => {
@@ -88,7 +74,7 @@ export default function Board({tileset, level}: BoardProps) {
 	}
 
 	return (
-		<div style={style} ref={board}>
+		<div style={style}>
         {tiles.map(tile => (
           <Tile
             key={tile.id}

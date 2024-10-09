@@ -23,16 +23,15 @@ export default function Tile({gridX, gridY, layer, code, id, status, tileset, on
 	} = {
     base: {
 			position: 'absolute',
-			border: '1px solid black',
-			boxSizing: 'border-box',
+			boxSizing: 'content-box',
+			border: `1px solid ${status === 'selected' ? 'red' : 'black'}`,
 			borderRadius: '0.25rem',
 			overflow: 'hidden',
       left: `${gridX * 100 / 15}%`,
       top: `${gridY * 1.25 * 100 / 15 - layer * 1.25 * 100 / 15 / 6}%`,
       width: `${100 / 15}%`,
 			aspectRatio: 80 / 115,
-			cursor: status === 'free' || status === 'selected' ? 'pointer' : 'default',
-			boxShadow: status === 'selected' ? '0 0 .5rem white' : 'none'
+			cursor: status === 'free' || status === 'selected' ? 'pointer' : 'default'
     },
 		bg: {
 			aspectRatio: 0.8,
@@ -53,7 +52,7 @@ export default function Tile({gridX, gridY, layer, code, id, status, tileset, on
 			backgroundSize: '600% 700%'
     },
 		overlay: {
-			backgroundColor: status === 'selected' ? 'rgba(255, 255, 255, .25)' : 'rgba(0, 0, 0, .6)',
+			backgroundColor: status === 'selected' ? 'rgba(255, 0, 0, .1)' : 'rgba(0, 0, 0, .6)',
 			position: 'absolute',
 			width: '100%',
 			height: '100%'
