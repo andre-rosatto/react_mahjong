@@ -51,13 +51,13 @@ export default function Board({tileset, level}: BoardProps) {
 
 	const isTileFree = (tile: TileData): boolean => {		
 		// check on top
-		if (tiles.some(t => t.layer - tile.layer >= 1 && Math.abs(t.gridX - tile.gridX) < 1 && Math.abs(t.gridY - tile.gridY) < 1)) {
+		if (tiles.filter(t => !t.matched).some(t => t.layer - tile.layer >= 1 && Math.abs(t.gridX - tile.gridX) < 1 && Math.abs(t.gridY - tile.gridY) < 1)) {
 			return false;
 		}
 		// check sideways
 		return !(
-			tiles.some(t => t.layer === tile.layer && t.gridX < tile.gridX && tile.gridX - t.gridX <= 1 && Math.abs(t.gridY - tile.gridY) < 1)
-			&& tiles.some(t => t.layer === tile.layer && t.gridX > tile.gridX && t.gridX - tile.gridX <= 1 && Math.abs(t.gridY - tile.gridY) < 1)
+			tiles.filter(t => !t.matched).some(t => t.layer === tile.layer && t.gridX < tile.gridX && tile.gridX - t.gridX <= 1 && Math.abs(t.gridY - tile.gridY) < 1)
+			&& tiles.filter(t => !t.matched).some(t => t.layer === tile.layer && t.gridX > tile.gridX && t.gridX - tile.gridX <= 1 && Math.abs(t.gridY - tile.gridY) < 1)
 		);
   };
 

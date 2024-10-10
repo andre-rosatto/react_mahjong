@@ -32,7 +32,9 @@ export default function Tile({gridX, gridY, layer, code, id, status, tileset, on
       width: `${100 / 15}%`,
 			aspectRatio: 80 / 115,
 			cursor: status === 'free' || status === 'selected' ? 'pointer' : 'default',
-			zIndex: Math.ceil(gridY + layer * 15 * 15)
+			zIndex: Math.ceil(gridY + layer * 15 * 15),
+
+			visibility: status === 'matched' ? 'hidden' : 'visible'
     },
 		bg: {
 			aspectRatio: 0.8,
