@@ -31,7 +31,8 @@ export default function Tile({gridX, gridY, layer, code, id, status, tileset, on
       top: `${gridY * 1.25 * 100 / 15 - layer * 1.25 * 100 / 15 / 6}%`,
       width: `${100 / 15}%`,
 			aspectRatio: 80 / 115,
-			cursor: status === 'free' || status === 'selected' ? 'pointer' : 'default'
+			cursor: status === 'free' || status === 'selected' ? 'pointer' : 'default',
+			zIndex: Math.ceil(gridY + layer * 15 * 15)
     },
 		bg: {
 			aspectRatio: 0.8,

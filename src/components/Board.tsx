@@ -12,7 +12,7 @@ export default function Board({tileset, level}: BoardProps) {
   const [selectedId, setSelectedId] = useState<null | number>(null);
 
 	useEffect(() => {
-		setTiles(level.map((pos, idx) => {
+		const newTiles = level.map((pos, idx) => {
 			return {
 				gridX: pos.gridX,
 				gridY: pos.gridY,
@@ -21,7 +21,8 @@ export default function Board({tileset, level}: BoardProps) {
 				code: Math.floor(idx / 2) % 36,
 				matched: false
 			}
-		}));
+		});
+		setTiles(newTiles);
   }, [level]);
 
 	const handleTileClick = (id: number): void => {

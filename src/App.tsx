@@ -1,6 +1,6 @@
 import { TilePosition } from './typings/types.d';
 import tileset from './assets/tiles.webp';
-// import useRandom from './hooks/useRandom';
+import useRandom from './hooks/useRandom';
 import Board from './components/Board';
 import { useState } from 'react';
 
@@ -177,23 +177,22 @@ const LEVEL: Array<TilePosition> = [
   { gridX: 6.5, gridY: 3.5, layer: 4 },
 ];
 function App() {
-	// const {setSeed, getRandom} = useRandom(new Date().getDate() + new Date().getMonth() / 100 + new Date().getFullYear() / 1000000);
-	const [level, setLevel] = useState<Array<TilePosition>>(LEVEL);
+	const seed = parseInt(new Date().getFullYear().toString() + new Date().getMonth().toString().padStart(2, '0') + new Date().getDate().toString().padStart(2, '0'));
+
+	const {getRandom} = useRandom(seed);
+	const [level] = useState<Array<TilePosition>>(() => {
+		const tempLevel = [...LEVEL];
+		const newLevel: Array<TilePosition> = [];
+		while (tempLevel.length > 0) {
+			newLevel.push(tempLevel.splice(Math.floor(getRandom() * tempLevel.length), 1)[0]);
+		}
+		return newLevel;
+	});
 
   return (
     <div className='p-2'>
       {/* board */}
 			<Board tileset={tileset} level={level} />
-			<p
-				className='absolute text-white bottom-0'
-				onClick={() => {
-					console.log('click');
-					
-					setLevel([
-						{gridX: 5, gridY: 5, layer: 0}
-					]);
-				}}
-			>click</p>
     </div>
   );
 }
