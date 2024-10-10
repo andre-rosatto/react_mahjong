@@ -37,7 +37,8 @@ export default function Tile({gridX, gridY, layer, code, id, status, tileset, on
 			aspectRatio: 0.8,
 			position: 'absolute',
 			width: '100%',
-			background: 'linear-gradient(#ffedd5, #fed7aa)'
+			background: 'linear-gradient(#ffedd5, #fed7aa)',
+			borderRadius: '8%'
 		},
 		shadow: {
 			position: 'absolute',
@@ -49,7 +50,7 @@ export default function Tile({gridX, gridY, layer, code, id, status, tileset, on
       backgroundImage: `url(${tileset})`,
       backgroundPosition: `${code % 6 * 100 / 5}% ${Math.floor(code / 6) * 100 / 5}%`,
 			aspectRatio: 80 / 115,
-			backgroundSize: '600% 700%'
+			backgroundSize: '600%'
     },
 		overlay: {
 			backgroundColor: status === 'selected' ? 'rgba(255, 0, 0, .1)' : 'rgba(0, 0, 0, .6)',

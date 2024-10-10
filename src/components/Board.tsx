@@ -18,7 +18,7 @@ export default function Board({tileset, level}: BoardProps) {
 				gridY: pos.gridY,
 				layer: pos.layer,
 				id: idx,
-				code: 0,
+				code: Math.floor(idx / 2) % 36,
 				matched: false
 			}
 		}));
