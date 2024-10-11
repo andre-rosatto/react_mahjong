@@ -67,7 +67,7 @@ export default function Board({tileset, level}: BoardProps) {
     return isTileFree(tile) ? 'free' : 'blocked';
   };
 
-	const getPairs = (): number => {
+	const getPairCount = (): number => {
 		const freeTiles = tiles.filter(tile => !tile.matched && isTileFree(tile));
 		let result = 0;
 		freeTiles.forEach(tile => {
@@ -102,7 +102,7 @@ export default function Board({tileset, level}: BoardProps) {
 				/>
 			))}
 		</div>
-		<p className="text-white">free pairs: {getPairs()}</p>
+		<p className="text-white">free pairs: {getPairCount()}</p>
 		</>
 	);
 }

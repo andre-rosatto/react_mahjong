@@ -180,17 +180,19 @@ function App() {
 	const seed = parseInt(new Date().getFullYear().toString() + new Date().getMonth().toString().padStart(2, '0') + new Date().getDate().toString().padStart(2, '0'));
 
 	const {getRandom} = useRandom(seed);
-	const [level] = useState<Array<TilePosition>>(() => {
+	const [level] = useState<Array<TilePosition>>(shuffle());
+
+	function shuffle(): Array<TilePosition> {
 		const tempLevel = [...LEVEL];
 		const newLevel: Array<TilePosition> = [];
 		while (tempLevel.length > 0) {
 			newLevel.push(tempLevel.splice(Math.floor(getRandom() * tempLevel.length), 1)[0]);
 		}
 		return newLevel;
-	});
+	}
 
   return (
-    <div className='p-2'>
+    <div className='p-2 bg-green-900 min-h-screen'>
       {/* board */}
 			<Board tileset={tileset} level={level} />
     </div>
