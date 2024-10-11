@@ -176,6 +176,7 @@ const LEVEL: Array<TilePosition> = [
 	// layer 4
   { gridX: 6.5, gridY: 3.5, layer: 4 },
 ];
+
 function App() {
 	const seed = parseInt(new Date().getFullYear().toString() + new Date().getMonth().toString().padStart(2, '0') + new Date().getDate().toString().padStart(2, '0'));
 
