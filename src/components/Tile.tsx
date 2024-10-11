@@ -28,11 +28,11 @@ export default function Tile({gridX, gridY, layer, code, id, status, tileset, on
 			borderRadius: '8%',
 			overflow: 'hidden',
       left: `${gridX * 100 / 15}%`,
-      top: `${gridY * 1.25 * 100 / 15 - layer * 1.25 * 100 / 15 / 6}%`,
+      top: `${gridY * (100 - 2) / 8 - layer * (100 - 2) / 8 / 6}%`,
       width: `${100 / 15}%`,
 			aspectRatio: 80 / 115,
 			cursor: status === 'free' || status === 'selected' ? 'pointer' : 'default',
-			zIndex: Math.ceil(gridY + layer * 15 * 15),
+			zIndex: Math.ceil(gridY + layer * 15),
 
 			visibility: status === 'matched' ? 'hidden' : 'visible'
     },

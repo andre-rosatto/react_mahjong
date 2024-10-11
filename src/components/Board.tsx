@@ -67,28 +67,42 @@ export default function Board({tileset, level}: BoardProps) {
     return isTileFree(tile) ? 'free' : 'blocked';
   };
 
+	const getPairs = (): number => {
+		const freeTiles = tiles.filter(tile => !tile.matched && isTileFree(tile));
+		let result = 0;
+		freeTiles.forEach(tile => {
+			if (freeTiles.some(t => t !== tile && t.code === tile.code)) {
+				result++;
+			}
+		});
+		return Math.floor(result / 2);
+	}
+
 	const style: CSSProperties = {
-		aspectRatio: '1',
+		aspectRatio: 1200 / 815,
 		position: 'relative',
 		maxWidth: '900px',
 		margin: 'auto'
 	}
 
 	return (
+		<>
 		<div style={style}>
-        {tiles.map(tile => (
-          <Tile
-            key={tile.id}
-            gridX={tile.gridX}
-            gridY={tile.gridY}
-            layer={tile.layer}
-            code={tile.code}
-            id={tile.id}
-            status={getTileStatus(tile)}
-            tileset={tileset}
-            onClick={handleTileClick}
-          />
-        ))}
-      </div>
+			{tiles.map(tile => (
+				<Tile
+					key={tile.id}
+					gridX={tile.gridX}
+					gridY={tile.gridY}
+					layer={tile.layer}
+					code={tile.code}
+					id={tile.id}
+					status={getTileStatus(tile)}
+					tileset={tileset}
+					onClick={handleTileClick}
+				/>
+			))}
+		</div>
+		<p className="text-white">free pairs: {getPairs()}</p>
+		</>
 	);
 }
