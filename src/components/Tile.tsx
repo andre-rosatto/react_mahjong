@@ -30,7 +30,7 @@ export default function Tile({pos, code, id, status, tileset, onClick}: TileProp
 			transform: `scale(${status === 'matched' ? '1.25' : '1'})`,
 			transformOrigin: pos.x < 15 / 2 ? 'top right' : 'top left',
       left: `${pos.x * 100 / 15}%`,
-      top: `${pos.y * (100 - 2) / 8 - pos.layer * (100 - 2) / 8 / 6}%`,
+      top: `${pos.y * (100 - 2) / 9 - pos.layer * (100 - 2) / 9 / 6}%`,
       width: `${100 / 15}%`,
 			aspectRatio: 80 / 115,
 			cursor: status === 'free' || status === 'selected' ? 'pointer' : 'default',

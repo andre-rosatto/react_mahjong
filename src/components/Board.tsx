@@ -88,7 +88,7 @@ export default function Board({tileset, level, seed}: BoardProps) {
 	}
 
 	const style: CSSProperties = {
-		aspectRatio: 1200 / 815,
+		aspectRatio: 1200 / 915,
 		position: 'relative',
 		maxWidth: '900px',
 		margin: 'auto'
