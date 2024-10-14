@@ -1,14 +1,12 @@
-export interface TileData {
-	gridX: number;
-	gridY: number;
+export interface TilePosition {
+	x: number;
+	y: number;
 	layer: number;
+}
+
+export interface TileData {
+	pos: TilePosition;
 	id: number;
 	code: number;
 	matched: boolean;
-}
-
-export interface TilePosition {
-	gridX: number;
-	gridY: number;
-	layer: number;
 }

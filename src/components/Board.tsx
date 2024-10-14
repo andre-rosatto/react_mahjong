@@ -1,6 +1,7 @@
 import { CSSProperties, useEffect, useState } from "react";
 import { TileData, TilePosition } from "../typings/types";
 import Tile, { TileStatus } from "./Tile";
+import userGrid from "../hooks/useGrid";
 
 export interface BoardProps {
 	tileset: string;
@@ -10,13 +11,16 @@ export interface BoardProps {
 export default function Board({tileset, level}: BoardProps) {
 	const [tiles, setTiles] = useState<Array<TileData>>([]);
   const [selectedId, setSelectedId] = useState<null | number>(null);
+	const {isPositionFree} = userGrid();
 
 	useEffect(() => {
 		const newTiles = level.map((pos, idx) => {
 			return {
-				gridX: pos.gridX,
-				gridY: pos.gridY,
-				layer: pos.layer,
+				pos: {
+					x: pos.x,
+					y: pos.y,
+					layer: pos.layer,
+				},
 				id: idx,
 				code: Math.floor(idx / 2) % 36,
 				matched: false
@@ -49,26 +53,14 @@ export default function Board({tileset, level}: BoardProps) {
     }
   };
 
-	const isTileFree = (tile: TileData): boolean => {		
-		// check on top
-		if (tiles.filter(t => !t.matched).some(t => t.layer - tile.layer >= 1 && Math.abs(t.gridX - tile.gridX) < 1 && Math.abs(t.gridY - tile.gridY) < 1)) {
-			return false;
-		}
-		// check sideways
-		return !(
-			tiles.filter(t => !t.matched).some(t => t.layer === tile.layer && t.gridX < tile.gridX && tile.gridX - t.gridX <= 1 && Math.abs(t.gridY - tile.gridY) < 1)
-			&& tiles.filter(t => !t.matched).some(t => t.layer === tile.layer && t.gridX > tile.gridX && t.gridX - tile.gridX <= 1 && Math.abs(t.gridY - tile.gridY) < 1)
-		);
-  };
-
   const getTileStatus = (tile: TileData): TileStatus => {
     if (tile.matched) return 'matched';
     if (tile.id === selectedId) return 'selected';
-    return isTileFree(tile) ? 'free' : 'blocked';
+		return isPositionFree(tile.pos, tiles.filter(t => !t.matched).map(t => t.pos)) ? 'free' : 'blocked';
   };
 
 	const getPairCount = (): number => {
-		const freeTiles = tiles.filter(tile => !tile.matched && isTileFree(tile));
+		const freeTiles = tiles.filter(tile => !tile.matched && isPositionFree(tile.pos, tiles.filter(t => !t.matched).map(t => t.pos)));
 		let result = 0;
 		freeTiles.forEach(tile => {
 			if (freeTiles.some(t => t !== tile && t.code === tile.code)) {
@@ -91,9 +83,7 @@ export default function Board({tileset, level}: BoardProps) {
 			{tiles.map(tile => (
 				<Tile
 					key={tile.id}
-					gridX={tile.gridX}
-					gridY={tile.gridY}
-					layer={tile.layer}
+					pos={tile.pos}
 					code={tile.code}
 					id={tile.id}
 					status={getTileStatus(tile)}

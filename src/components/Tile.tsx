@@ -1,11 +1,10 @@
 import { CSSProperties } from "react";
+import { TilePosition } from "../typings/types";
 
 export type TileStatus = 'free' | 'selected' | 'blocked' | 'matched';
 
 export interface TileProps {
-  gridX: number;
-  gridY: number;
-  layer: number;
+	pos: TilePosition;
   code: number;
   id: number;
   status: TileStatus;
@@ -13,7 +12,7 @@ export interface TileProps {
   onClick: (id: number) => void;
 }
 
-export default function Tile({gridX, gridY, layer, code, id, status, tileset, onClick}: TileProps) {
+export default function Tile({pos, code, id, status, tileset, onClick}: TileProps) {
   const style: {
 		base: CSSProperties,
 		bg: CSSProperties,
@@ -27,12 +26,12 @@ export default function Tile({gridX, gridY, layer, code, id, status, tileset, on
 			border: `1px solid ${status === 'selected' ? 'red' : 'black'}`,
 			borderRadius: '8%',
 			overflow: 'hidden',
-      left: `${gridX * 100 / 15}%`,
-      top: `${gridY * (100 - 2) / 8 - layer * (100 - 2) / 8 / 6}%`,
+      left: `${pos.x * 100 / 15}%`,
+      top: `${pos.y * (100 - 2) / 8 - pos.layer * (100 - 2) / 8 / 6}%`,
       width: `${100 / 15}%`,
 			aspectRatio: 80 / 115,
 			cursor: status === 'free' || status === 'selected' ? 'pointer' : 'default',
-			zIndex: Math.ceil(gridY + layer * 15),
+			zIndex: Math.ceil(pos.y + pos.layer * 15),
 
 			visibility: status === 'matched' ? 'hidden' : 'visible'
     },
