@@ -1,19 +1,28 @@
-import { CSSProperties, useEffect, useState } from "react";
+import { CSSProperties, useState } from "react";
 import { TileData, TilePosition } from "../typings/types";
 import Tile, { TileStatus } from "./Tile";
-import userGrid from "../hooks/useGrid";
+import useGrid from "../hooks/useGrid";
+import useRandom from "../hooks/useRandom";
 
 export interface BoardProps {
 	tileset: string;
 	level: Array<TilePosition>;
+	seed: number;
 }
 
-export default function Board({tileset, level}: BoardProps) {
-	const [tiles, setTiles] = useState<Array<TileData>>([]);
+export default function Board({tileset, level, seed}: BoardProps) {
+	const {getRandom} = useRandom(seed);
   const [selectedId, setSelectedId] = useState<null | number>(null);
-	const {isPositionFree} = userGrid();
+	const {isPositionFree} = useGrid();
+	const [tiles] = useState<Array<TileData>>(getTiles());
 
-	useEffect(() => {
+	function getTiles(): Array<TileData> {
+		const tempCodes: number[] = Array.from({length: Math.floor(level.length / 2)}, (_, idx) => idx % 36);
+		const codes: number[] = [];
+		do {
+			codes.push(tempCodes.splice(Math.floor(getRandom() * tempCodes.length), 1)[0]);
+		} while (tempCodes.length > 0);
+		
 		const newTiles = level.map((pos, idx) => {
 			return {
 				pos: {
@@ -22,12 +31,12 @@ export default function Board({tileset, level}: BoardProps) {
 					layer: pos.layer,
 				},
 				id: idx,
-				code: Math.floor(idx / 2) % 36,
+				code: codes[Math.floor(idx / 2)],
 				matched: false
 			}
 		});
-		setTiles(newTiles);
-  }, [level]);
+		return newTiles;
+	}
 
 	const handleTileClick = (id: number): void => {
     if (id === selectedId) {

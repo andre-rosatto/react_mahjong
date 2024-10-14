@@ -3,6 +3,7 @@ import tileset from './assets/tiles.webp';
 import useRandom from './hooks/useRandom';
 import Board from './components/Board';
 import { useState } from 'react';
+import useGrid from './hooks/useGrid';
 
 const LEVEL: Array<TilePosition> = [
 	// layer 0
@@ -178,24 +179,34 @@ const LEVEL: Array<TilePosition> = [
 ];
 
 function App() {
-	const seed = parseInt(new Date().getFullYear().toString() + new Date().getMonth().toString().padStart(2, '0') + new Date().getDate().toString().padStart(2, '0'));
+	const seed = parseInt(
+		new Date().getFullYear().toString() +
+		new Date().getMonth().toString().padStart(2, '0') +
+		new Date().getDate().toString().padStart(2, '0')
+	);
 
 	const {getRandom} = useRandom(seed);
+	const {isPositionFree} = useGrid();
 	const [level] = useState<Array<TilePosition>>(shuffle());
 
 	function shuffle(): Array<TilePosition> {
+		const nextLevel: Array<TilePosition> = [];
 		const tempLevel = [...LEVEL];
-		const newLevel: Array<TilePosition> = [];
-		while (tempLevel.length > 0) {
-			newLevel.push(tempLevel.splice(Math.floor(getRandom() * tempLevel.length), 1)[0]);
-		}
-		return newLevel;
+		do {
+			const emptyPositions = tempLevel.filter(pos => isPositionFree(pos, tempLevel));
+			let pos1 = emptyPositions.splice(Math.floor(getRandom() * emptyPositions.length), 1)[0];
+			let pos2 = emptyPositions.splice(Math.floor(getRandom() * emptyPositions.length), 1)[0];
+			tempLevel.splice(tempLevel.indexOf(pos1), 1);
+			tempLevel.splice(tempLevel.indexOf(pos2), 1);
+			nextLevel.push(pos1, pos2);
+		} while (tempLevel.length > 0);
+		return nextLevel;
 	}
 
   return (
     <div className='p-2 bg-green-900 min-h-screen'>
       {/* board */}
-			<Board tileset={tileset} level={level} />
+			<Board tileset={tileset} level={level} seed={seed} />
     </div>
   );
 }
