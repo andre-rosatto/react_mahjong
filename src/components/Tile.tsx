@@ -26,14 +26,17 @@ export default function Tile({pos, code, id, status, tileset, onClick}: TileProp
 			border: `1px solid ${status === 'selected' ? 'red' : 'black'}`,
 			borderRadius: '8%',
 			overflow: 'hidden',
+			transition: status === 'matched' ? 'left .5s, top .5s, transform .5s, opacity .5s .75s' : 'none',
+			transform: `scale(${status === 'matched' ? '1.25' : '1'})`,
+			transformOrigin: pos.x < 15 / 2 ? 'top right' : 'top left',
       left: `${pos.x * 100 / 15}%`,
       top: `${pos.y * (100 - 2) / 8 - pos.layer * (100 - 2) / 8 / 6}%`,
       width: `${100 / 15}%`,
 			aspectRatio: 80 / 115,
 			cursor: status === 'free' || status === 'selected' ? 'pointer' : 'default',
 			zIndex: Math.ceil(pos.y + pos.layer * 15),
-
-			visibility: status === 'matched' ? 'hidden' : 'visible'
+			opacity: status === 'matched' ? 0 : 1,
+			pointerEvents: status === 'free' || status === 'selected' ? 'auto' : 'none'
     },
 		bg: {
 			aspectRatio: 0.8,

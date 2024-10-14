@@ -8,5 +8,5 @@ export interface TileData {
 	pos: TilePosition;
 	id: number;
 	code: number;
-	matched: boolean;
+	matchIdx: number;
 }

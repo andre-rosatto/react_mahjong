@@ -32,7 +32,7 @@ export default function Board({tileset, level, seed}: BoardProps) {
 				},
 				id: idx,
 				code: codes[Math.floor(idx / 2)],
-				matched: false
+				matchIdx: 0
 			}
 		});
 		return newTiles;
@@ -43,13 +43,21 @@ export default function Board({tileset, level, seed}: BoardProps) {
       // deselect current tile
       setSelectedId(null);
     } else {
-      if (selectedId) {
+      if (selectedId !== null) {
         // check match
         const selectedTiles = tiles.filter(t => t.id === id || t.id === selectedId);
         if (selectedTiles.length === 2 && selectedTiles[0].code === selectedTiles[1].code) {
           // tiles match
-          selectedTiles[0].matched = true;
-          selectedTiles[1].matched = true;
+          selectedTiles[0].matchIdx = 1;
+          selectedTiles[1].matchIdx = 2;
+					// move tiles to match position based on their x position
+					if (selectedTiles[0].pos.x < selectedTiles[1].pos.x) {
+						selectedTiles[0].pos = { x: 7, y: 4.5, layer: 10 };
+						selectedTiles[1].pos = { x: 8, y: 4.5, layer: 10 };
+					} else {
+						selectedTiles[0].pos = { x: 8, y: 4.5, layer: 10 };
+						selectedTiles[1].pos = { x: 7, y: 4.5, layer: 10 };
+					}
           setSelectedId(null);
         } else {
           // tiles don't match
@@ -63,13 +71,13 @@ export default function Board({tileset, level, seed}: BoardProps) {
   };
 
   const getTileStatus = (tile: TileData): TileStatus => {
-    if (tile.matched) return 'matched';
+    if (tile.matchIdx) return 'matched';
     if (tile.id === selectedId) return 'selected';
-		return isPositionFree(tile.pos, tiles.filter(t => !t.matched).map(t => t.pos)) ? 'free' : 'blocked';
+		return isPositionFree(tile.pos, tiles.filter(t => !t.matchIdx).map(t => t.pos)) ? 'free' : 'blocked';
   };
 
 	const getPairCount = (): number => {
-		const freeTiles = tiles.filter(tile => !tile.matched && isPositionFree(tile.pos, tiles.filter(t => !t.matched).map(t => t.pos)));
+		const freeTiles = tiles.filter(tile => !tile.matchIdx && isPositionFree(tile.pos, tiles.filter(t => !t.matchIdx).map(t => t.pos)));
 		let result = 0;
 		freeTiles.forEach(tile => {
 			if (freeTiles.some(t => t !== tile && t.code === tile.code)) {
