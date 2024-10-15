@@ -12,6 +12,10 @@ export interface TileProps {
   onClick: (id: number) => void;
 }
 
+const SIZE_X = 15;
+const SIZE_Y = 9;
+const DEPTH = 10;
+
 export default function Tile({pos, code, id, status, tileset, onClick}: TileProps) {
   const style: {
 		base: CSSProperties,
@@ -28,15 +32,15 @@ export default function Tile({pos, code, id, status, tileset, onClick}: TileProp
 			overflow: 'hidden',
 			transition: status === 'matched' ? 'left .5s, top .5s, transform .5s, opacity .5s .75s' : 'none',
 			transform: `scale(${status === 'matched' ? '1.25' : '1'})`,
-			transformOrigin: pos.x < 15 / 2 ? 'top right' : 'top left',
-      left: `${pos.x * 100 / 15}%`,
-      top: `${pos.y * (100 - 2) / 9 - pos.layer * (100 - 2) / 9 / 6}%`,
-      width: `${100 / 15}%`,
-			aspectRatio: 80 / 115,
+			transformOrigin: pos.x < SIZE_X / 2 ? 'top right' : 'top left',
+      left: `${pos.x * 100 / SIZE_X}%`,
+      top: `${pos.y * (100 - 2) / 9 - pos.layer * (100 - 2) / SIZE_Y / (100 / DEPTH)}%`,
+      width: `${100 / SIZE_X}%`,
+			aspectRatio: 80 / (100 + DEPTH),
 			cursor: status === 'free' || status === 'selected' ? 'pointer' : 'default',
 			zIndex: Math.ceil(pos.y + pos.layer * 15),
 			opacity: status === 'matched' ? 0 : 1,
-			pointerEvents: status === 'free' || status === 'selected' ? 'auto' : 'none'
+			pointerEvents: status === 'free' || status === 'selected' ? 'auto' : 'none',
     },
 		bg: {
 			aspectRatio: 0.8,
