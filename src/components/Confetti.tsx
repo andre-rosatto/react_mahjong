@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
 interface ConfettiProps {
-	count: number;
+	count?: number;
 	colors?: Array<string>
 }
 
@@ -18,7 +18,7 @@ interface IConfetti {
 }
 
 export default function Confetti({
-		count,
+		count = 100,
 		colors = ['red', 'blue', 'cyan', 'green', 'yellow', 'white', 'pink', 'orange', 'purple']
 	}: ConfettiProps) {
 	const canvas = useRef<HTMLCanvasElement>(null);

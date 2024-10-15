@@ -68,7 +68,7 @@ function App() {
       {/* board */}
 			<Board tileset={tileset} level={level} seed={seed} onGameEnd={handleGameEnd} />
 
-			{status === 'win' && <Confetti count={100} />}
+			{status === 'win' && <Confetti />}
     </div>
   );
 }
