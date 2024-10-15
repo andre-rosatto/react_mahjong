@@ -38,7 +38,7 @@ export default function Tile({pos, code, id, status, tileset, onClick}: TileProp
       width: `${100 / SIZE_X}%`,
 			aspectRatio: 80 / (100 + DEPTH),
 			cursor: status === 'free' || status === 'selected' ? 'pointer' : 'default',
-			zIndex: Math.ceil(pos.y + pos.layer * 15),
+			zIndex: Math.ceil(pos.y + pos.layer * SIZE_X),
 			opacity: status === 'matched' ? 0 : 1,
 			pointerEvents: status === 'free' || status === 'selected' ? 'auto' : 'none',
     },
