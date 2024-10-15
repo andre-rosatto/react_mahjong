@@ -8,9 +8,10 @@ export interface BoardProps {
 	tileset: string;
 	level: Array<TilePosition>;
 	seed: number;
+	onGameEnd: (status: 'win' | 'lose') => void;
 }
 
-export default function Board({tileset, level, seed}: BoardProps) {
+export default function Board({tileset, level, seed, onGameEnd}: BoardProps) {
 	const {getRandom} = useRandom(seed);
   const [selectedId, setSelectedId] = useState<null | number>(null);
 	const {isPositionFree} = useGrid();
@@ -59,6 +60,14 @@ export default function Board({tileset, level, seed}: BoardProps) {
 						selectedTiles[1].pos = { x: 7, y: 4.5, layer: 10 };
 					}
           setSelectedId(null);
+
+					// check end game
+					if (!tiles.some(tile => tile.matchIdx === 0)) {
+						// game win
+						onGameEnd('win');
+					} else if (getPairCount() === 0) {
+						onGameEnd('lose');
+					}
         } else {
           // tiles don't match
           setSelectedId(id);

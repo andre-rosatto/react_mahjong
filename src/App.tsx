@@ -5,6 +5,7 @@ import Board from './components/Board';
 import { useState } from 'react';
 import useGrid from './hooks/useGrid';
 import LEVELS from './assets/levels';
+import Confetti from './components/Confetti';
 
 
 function App() {
@@ -18,12 +19,15 @@ function App() {
 	const {getRandom} = useRandom(seed);
 	const {isPositionFree} = useGrid();
 	const [level] = useState<Array<TilePosition>>(shuffle());
+	const [status, setStatus] = useState<'' | 'win' | 'lose'>('');
 
 	function shuffle(): Array<TilePosition> {
 		const levelIdx = LEVELS.length - 1;		// debug
 		// const levelIdx = 2;		// debug
 		// const levelIdx = Math.floor(getRandom() * LEVELS.length);
 		console.log('levelIdx', levelIdx);
+
+		return LEVELS[levelIdx];		// debug
 		
 		let nextLevel: Array<TilePosition> = [];
 		let tempLevel = [...LEVELS[levelIdx]];
@@ -54,10 +58,17 @@ function App() {
 		return nextLevel;
 	}
 
+	const handleGameEnd = (status: 'win' | 'lose') => {
+		setStatus(status);
+		console.log('game over', status);
+	}
+
   return (
     <div className='pt-10 bg-green-900 min-h-screen'>
       {/* board */}
-			<Board tileset={tileset} level={level} seed={seed} />
+			<Board tileset={tileset} level={level} seed={seed} onGameEnd={handleGameEnd} />
+
+			{status === 'win' && <Confetti count={100} />}
     </div>
   );
 }

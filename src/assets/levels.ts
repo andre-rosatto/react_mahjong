@@ -2974,6 +2974,17 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 9.5, y: 5, layer: 2 },
 		{ x: 9.5, y: 6, layer: 2 },
 		{ x: 9.5, y: 7, layer: 2 },
+	],
+
+	// test
+	[
+		{ x: 0, y: 0, layer: 0 },
+		{ x: 2, y: 0, layer: 0 },
+		{ x: 1, y: 0, layer: 0 },
+		{ x: 3, y: 0, layer: 0 },
+
+		{ x: 5, y: 0, layer: 0 },
+		{ x: 6, y: 0, layer: 0 },
 	]
 ];
 
