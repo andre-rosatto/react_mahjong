@@ -6,6 +6,7 @@ import { useState } from 'react';
 import useGrid from './hooks/useGrid';
 import LEVELS from './assets/levels';
 import Confetti from './components/Confetti';
+import loseIcon from './assets/lose.svg';
 
 
 function App() {
@@ -64,11 +65,19 @@ function App() {
 	}
 
   return (
-    <div className='pt-10 bg-green-900 min-h-screen'>
+    <div className='pt-10 bg-green-900 min-h-screen relative font-concert1'>
       {/* board */}
 			<Board tileset={tileset} level={level} seed={seed} onGameEnd={handleGameEnd} />
 
 			{status === 'win' && <Confetti />}
+
+			{status === 'lose' &&
+				<div className='absolute w-full pt-24 top-0 flex flex-col items-center justify-center gap-4 overflow-hidden'>
+					<p className='text-white text-8xl animate-slide-right drop-shadow-ld opacity-0'>No</p>
+					<img src={loseIcon} alt="sad icon" className='w-40 animate-pop opacity-0' />
+					<p className='text-white text-8xl animate-slide-left drop-shadow-rd opacity-0'>Moves</p>
+				</div>
+			}
     </div>
   );
 }
