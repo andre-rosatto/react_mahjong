@@ -3,20 +3,25 @@ import { TileData, TilePosition } from "../typings/types";
 import Tile, { TileStatus } from "./Tile";
 import useGrid from "../hooks/useGrid";
 import useRandom from "../hooks/useRandom";
-import Inforbar from "./Infobar";
+import Infobar from "./Infobar";
+import { Modal } from "./Modal";
 
 export interface BoardProps {
 	tileset: string;
 	level: Array<TilePosition>;
 	seed: number;
 	onGameEnd: (status: 'win' | 'lose') => void;
+	onRestart: () => void;
 }
 
-export default function Game({tileset, level, seed, onGameEnd}: BoardProps) {
-	const {getRandom} = useRandom(seed);
+type Modal = null | 'confirm' | 'help';
+
+export default function Game({tileset, level, seed, onGameEnd, onRestart}: BoardProps) {
+	const {setSeed, getRandom} = useRandom(seed);
   const [selectedId, setSelectedId] = useState<null | number>(null);
 	const {isPositionFree} = useGrid();
-	const [tiles] = useState<Array<TileData>>(getTiles());
+	const [tiles, setTiles] = useState<Array<TileData>>(getTiles());
+	const [modal, setModal] = useState<Modal>(null);
 
 	function getTiles(): Array<TileData> {
 		const tempCodes: number[] = Array.from({length: Math.floor(level.length / 2)}, (_, idx) => idx % 36);
@@ -97,6 +102,23 @@ export default function Game({tileset, level, seed, onGameEnd}: BoardProps) {
 		return Math.floor(result / 2);
 	}
 
+	const handleRestart = () => {
+		if (!tiles.some(tile => tile.matchIdx === 0) || getPairCount() === 0) {
+			// game is over
+			restartLevel();
+		} else {
+			// game isn't over, so confirm restart
+			setModal('confirm');
+		}
+	}
+
+	const restartLevel = () => {
+		setSelectedId(null);
+		setSeed(seed);
+		setTiles(getTiles());
+		onRestart();
+	}
+
 	const style: CSSProperties = {
 		aspectRatio: 1200 / 915,
 		position: 'relative',
@@ -106,6 +128,7 @@ export default function Game({tileset, level, seed, onGameEnd}: BoardProps) {
 
 	return (
 		<>
+		{/* tiles */}
 		<div style={style}>
 			{tiles.map(tile => (
 				<Tile
@@ -119,10 +142,64 @@ export default function Game({tileset, level, seed, onGameEnd}: BoardProps) {
 				/>
 			))}
 		</div>
-		<Inforbar
+
+		{/* infobar */}
+		<Infobar
 			tiles={tiles.filter(tile => tile.matchIdx === 0).length}
 			moves={getPairCount()}
+			onHelp={() => setModal('help')}
+			onRestart={handleRestart}
 		/>
+
+		{/* level restart confirmation modal */}
+		{modal === 'confirm' &&
+			<Modal onClose={() => setModal(null)}>
+				<div className="border border-white rounded-md bg-black flex flex-col py-5 px-10 mt-8 h-fit">
+				
+				<h2 className="text-4xl text-center mb-5">Confirm restart?</h2>
+				<p className="text-center text-lg">The game is not over yet.</p>
+				<p className="text-center text-lg">Are you sure you want to restart?</p>
+				
+				<div className="flex justify-between mt-8">
+					<button
+						className="text-2xl rounded-md px-2 -translate-y-1 active:translate-y-0 bg-red-700 shadow-btn-red active:shadow-none"
+						onClick={restartLevel}
+					>Restart</button>
+					<button
+						className="text-2xl rounded-md px-2 -translate-y-1 active:translate-y-0 bg-blue-700 shadow-btn-blue active:shadow-none"
+					>Cancel</button>
+				</div>
+
+			</div>
+			</Modal>
+		}
+
+		{/* how-to-play modal */}
+		{modal === 'help' &&
+			<Modal onClose={() => setModal(null)}>
+				<div className="border border-white rounded-md bg-black flex flex-col py-5 px-4 mt-4 h-fit w-11/12 md:w-9/12">
+					<h2 className="text-4xl text-center">How to play</h2>
+
+					<h3 className="text-2xl mb-1 mt-4">Goal</h3>
+					<p className="pl-4">Your goal is to remove all the tiles from the board by matching tiles with the same symbol.</p>
+
+					<h3 className="text-2xl mb-1 mt-4">Rules</h3>
+					<p className="pl-4">Only free tiles can be removed. A tile is free when:</p>
+					<ul className="pl-4">
+						<li className="pl-4 list-disc list-inside"><span className="relative -left-2">There are no tiles on top of it.</span></li>
+						<li className="pl-4 list-disc list-inside"><span className="relative -left-2">It is free on at least one side.</span></li>
+					</ul>
+
+					<h3 className="text-2xl mb-1 mt-4">Winning / Losing</h3>
+					<p className="pl-4">You win when all tiles have been removed. You lose when there are no more possible moves.</p>
+					<p className="pl-4">All game are winnable. If you lose, just try again!</p>
+
+					<button
+						className="text-2xl rounded-md px-8 mt-5 -translate-y-1 active:translate-y-0 bg-blue-700 shadow-btn-blue active:shadow-none w-fit m-auto"
+					>OK</button>
+				</div>
+			</Modal>
+		}
 		</>
 	);
 }

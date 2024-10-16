@@ -67,7 +67,13 @@ function App() {
   return (
     <div className='pt-10 bg-green-900 min-h-screen relative font-concert1 text-white'>
       {/* board */}
-			<Game tileset={tileset} level={level} seed={seed} onGameEnd={handleGameEnd} />
+			<Game
+				tileset={tileset}
+				level={level}
+				seed={seed}
+				onGameEnd={handleGameEnd}
+				onRestart={() => setStatus('')}
+			/>
 
 			{status === 'win' && <Confetti />}
 
