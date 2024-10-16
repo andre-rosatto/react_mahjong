@@ -7,7 +7,7 @@ interface InfobarProps {
 
 export default function Infobar({tiles, moves, onRestart, onHelp}: InfobarProps) {
 	return (
-		<div className="w-full px-4 fixed bottom-2">
+		<div className="w-full px-4 fixed bottom-2 z-[800]">
 
 			<div className="flex justify-between border border-white rounded-md p-4 bg-black/50">
 
