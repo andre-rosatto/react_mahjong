@@ -179,9 +179,10 @@ export default function Game({tileset, level, seed, onGameEnd, onRestart}: Board
 			<Modal onClose={() => setModal(null)}>
 				<div className="border border-white rounded-md bg-black flex flex-col py-5 px-4 mt-4 h-fit w-11/12 md:w-9/12">
 					<h2 className="text-4xl text-center">How to play</h2>
+					<p className="text-center">A new game every day!</p>
 
 					<h3 className="text-2xl mb-1 mt-4">Goal</h3>
-					<p className="pl-4">Your goal is to remove all the tiles from the board by matching tiles with the same symbol.</p>
+					<p className="pl-4">Your goal is clear the board by matching tiles with the same symbol.</p>
 
 					<h3 className="text-2xl mb-1 mt-4">Rules</h3>
 					<p className="pl-4">Only free tiles can be removed. A tile is free when:</p>
