@@ -18,7 +18,7 @@ interface IConfetti {
 }
 
 export default function Confetti({
-		count = 100,
+		count = 50,
 		colors = ['red', 'blue', 'cyan', 'green', 'yellow', 'white', 'pink', 'orange', 'purple']
 	}: ConfettiProps) {
 	const canvas = useRef<HTMLCanvasElement>(null);
@@ -26,7 +26,7 @@ export default function Confetti({
 		Array.from(Array(count), () => {
 			return {
 				x: Math.random() * window.innerWidth,
-				y: Math.random() * -50,
+				y: Math.random() * -window.innerHeight,
 				w: Math.random() * 10 + 8,
 				h: Math.random() * 10 + 8,
 				r: Math.random(),
