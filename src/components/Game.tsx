@@ -3,6 +3,7 @@ import { TileData, TilePosition } from "../typings/types";
 import Tile, { TileStatus } from "./Tile";
 import useGrid from "../hooks/useGrid";
 import useRandom from "../hooks/useRandom";
+import Inforbar from "./Infobar";
 
 export interface BoardProps {
 	tileset: string;
@@ -11,7 +12,7 @@ export interface BoardProps {
 	onGameEnd: (status: 'win' | 'lose') => void;
 }
 
-export default function Board({tileset, level, seed, onGameEnd}: BoardProps) {
+export default function Game({tileset, level, seed, onGameEnd}: BoardProps) {
 	const {getRandom} = useRandom(seed);
   const [selectedId, setSelectedId] = useState<null | number>(null);
 	const {isPositionFree} = useGrid();
@@ -118,7 +119,10 @@ export default function Board({tileset, level, seed, onGameEnd}: BoardProps) {
 				/>
 			))}
 		</div>
-		<p className="text-white">free pairs: {getPairCount()}</p>
+		<Inforbar
+			tiles={tiles.filter(tile => tile.matchIdx === 0).length}
+			moves={getPairCount()}
+		/>
 		</>
 	);
 }

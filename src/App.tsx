@@ -1,7 +1,7 @@
 import { TilePosition } from './typings/types.d';
 import tileset from './assets/tiles.webp';
 import useRandom from './hooks/useRandom';
-import Board from './components/Board';
+import Game from './components/Game';
 import { useState } from 'react';
 import useGrid from './hooks/useGrid';
 import LEVELS from './assets/levels';
@@ -65,17 +65,17 @@ function App() {
 	}
 
   return (
-    <div className='pt-10 bg-green-900 min-h-screen relative font-concert1'>
+    <div className='pt-10 bg-green-900 min-h-screen relative font-concert1 text-white'>
       {/* board */}
-			<Board tileset={tileset} level={level} seed={seed} onGameEnd={handleGameEnd} />
+			<Game tileset={tileset} level={level} seed={seed} onGameEnd={handleGameEnd} />
 
 			{status === 'win' && <Confetti />}
 
 			{status === 'lose' &&
 				<div className='absolute w-full pt-24 top-0 flex flex-col items-center justify-center gap-4 overflow-hidden'>
-					<p className='text-white text-8xl animate-slide-right drop-shadow-ld opacity-0'>No</p>
+					<p className='text-8xl animate-slide-right drop-shadow-ld opacity-0'>No</p>
 					<img src={loseIcon} alt="sad icon" className='w-40 animate-pop opacity-0' />
-					<p className='text-white text-8xl animate-slide-left drop-shadow-rd opacity-0'>Moves</p>
+					<p className='text-8xl animate-slide-left drop-shadow-rd opacity-0'>Moves</p>
 				</div>
 			}
     </div>

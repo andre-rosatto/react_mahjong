@@ -32,6 +32,10 @@ module.exports = {
 			dropShadow: {
 				'rd': '.2rem .4rem 0 rgba(0, 0, 0, .5)',
 				'ld': '-.2rem .4rem 0 rgba(0, 0, 0, .5)',
+			},
+			boxShadow: {
+				'btn-blue': '0 .25rem 0 #052399',
+				'btn-red': '0 .25rem 0 #6a0404',
 			}
 		},
   },
