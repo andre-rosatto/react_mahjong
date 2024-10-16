@@ -53,11 +53,11 @@ export default function Board({tileset, level, seed, onGameEnd}: BoardProps) {
           selectedTiles[1].matchIdx = 2;
 					// move tiles to match position based on their x position
 					if (selectedTiles[0].pos.x < selectedTiles[1].pos.x) {
-						selectedTiles[0].pos = { x: 7, y: 4.5, layer: 10 };
-						selectedTiles[1].pos = { x: 8, y: 4.5, layer: 10 };
+						selectedTiles[0].pos = { x: 6.5, y: 4.5, layer: 10 };
+						selectedTiles[1].pos = { x: 7.5, y: 4.5, layer: 10 };
 					} else {
-						selectedTiles[0].pos = { x: 8, y: 4.5, layer: 10 };
-						selectedTiles[1].pos = { x: 7, y: 4.5, layer: 10 };
+						selectedTiles[0].pos = { x: 7.5, y: 4.5, layer: 10 };
+						selectedTiles[1].pos = { x: 6.5, y: 4.5, layer: 10 };
 					}
           setSelectedId(null);
 
