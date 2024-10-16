@@ -23,12 +23,12 @@ function App() {
 	const [status, setStatus] = useState<'' | 'win' | 'lose'>('');
 
 	function shuffle(): Array<TilePosition> {
-		const levelIdx = LEVELS.length - 1;		// debug
+		// const levelIdx = LEVELS.length - 1;		// debug
 		// const levelIdx = 2;		// debug
-		// const levelIdx = Math.floor(getRandom() * LEVELS.length);
+		const levelIdx = Math.floor(getRandom() * LEVELS.length);
 		console.log('levelIdx', levelIdx);
 
-		return LEVELS[levelIdx];		// debug
+		// return LEVELS[levelIdx];		// debug
 		
 		let nextLevel: Array<TilePosition> = [];
 		let tempLevel = [...LEVELS[levelIdx]];
@@ -78,7 +78,7 @@ function App() {
 			{status === 'win' && <Confetti />}
 
 			{status === 'lose' &&
-				<div className='absolute w-full pt-24 top-0 flex flex-col items-center justify-center gap-4 overflow-hidden'>
+				<div className='absolute w-full pt-24 top-0 flex flex-col items-center justify-center gap-4 overflow-hidden z-[900]'>
 					<p className='text-8xl animate-slide-right drop-shadow-ld opacity-0'>No</p>
 					<img src={loseIcon} alt="sad icon" className='w-40 animate-pop opacity-0' />
 					<p className='text-8xl animate-slide-left drop-shadow-rd opacity-0'>Moves</p>

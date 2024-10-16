@@ -2977,15 +2977,15 @@ const LEVELS: Array<Array<TilePosition>> = [
 	],
 
 	// test
-	[
-		{ x: 0, y: 0, layer: 0 },
-		{ x: 2, y: 0, layer: 0 },
-		{ x: 1, y: 0, layer: 0 },
-		{ x: 3, y: 0, layer: 0 },
+	// [
+	// 	{ x: 0, y: 0, layer: 0 },
+	// 	{ x: 2, y: 0, layer: 0 },
+	// 	{ x: 1, y: 0, layer: 0 },
+	// 	{ x: 3, y: 0, layer: 0 },
 
-		{ x: 5, y: 0, layer: 0 },
-		{ x: 6, y: 0, layer: 0 },
-	]
+	// 	{ x: 5, y: 0, layer: 0 },
+	// 	{ x: 6, y: 0, layer: 0 },
+	// ]
 ];
 
 export default LEVELS;
