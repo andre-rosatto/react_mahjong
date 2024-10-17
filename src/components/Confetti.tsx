@@ -1,8 +1,9 @@
-import { useEffect, useRef } from "react";
+import { CSSProperties, useEffect, useRef } from "react";
 
 interface ConfettiProps {
 	count?: number;
-	colors?: Array<string>
+	colors?: Array<string>;
+	zIndex?: number;
 }
 
 interface IConfetti {
@@ -19,7 +20,8 @@ interface IConfetti {
 
 export default function Confetti({
 		count = 50,
-		colors = ['red', 'blue', 'cyan', 'green', 'yellow', 'white', 'pink', 'orange', 'purple']
+		colors = ['red', 'blue', 'cyan', 'green', 'yellow', 'white', 'pink', 'orange', 'purple'],
+		zIndex = Number.MAX_SAFE_INTEGER
 	}: ConfettiProps) {
 	const canvas = useRef<HTMLCanvasElement>(null);
 	const confetti = useRef<Array<IConfetti>>(
@@ -82,11 +84,19 @@ export default function Confetti({
 
 	const isCanvas = (el: any): el is HTMLCanvasElement => 'getContext' in el;
 
+	const style: CSSProperties = {
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		pointerEvents: 'none',
+		zIndex: zIndex
+	}
+
 
 	return (
 		<canvas
 			ref={canvas}
-			className="absolute top-0 left-0 pointer-events-none box-border"
+			style={style}
 		></canvas>
 	);
 }
