@@ -78,7 +78,7 @@ function App() {
 			{status === 'win' && <Confetti />}
 
 			{status === 'lose' &&
-				<div className='absolute w-full pt-24 top-0 flex flex-col items-center justify-center gap-4 overflow-hidden z-[900]'>
+				<div className='absolute w-full pt-24 top-0 flex flex-col items-center justify-center gap-4 overflow-hidden z-[9000]'>
 					<p className='text-8xl animate-slide-right drop-shadow-ld opacity-0'>No</p>
 					<img src={loseIcon} alt="sad icon" className='w-40 animate-pop opacity-0' />
 					<p className='text-8xl animate-slide-left drop-shadow-rd opacity-0'>Moves</p>
