@@ -18,7 +18,6 @@ function App() {
 	// );
 
 	const {getRandom} = useRandom(seed);
-	// const {getRandom} = useRandom(useTime());
 	const {isPositionFree} = useGrid();
 	const [level] = useState<Array<TilePosition>>(shuffle());
 	const [status, setStatus] = useState<'' | 'win' | 'lose'>('');
