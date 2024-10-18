@@ -14,7 +14,7 @@ export interface TileProps {
 
 const SIZE_X = 15;
 const SIZE_Y = 9;
-const DEPTH = 10;
+const DEPTH = 15;
 
 export default function Tile({pos, code, id, status, tileset, onClick}: TileProps) {
   const style: {
@@ -38,7 +38,7 @@ export default function Tile({pos, code, id, status, tileset, onClick}: TileProp
       width: `${100 / SIZE_X}%`,
 			aspectRatio: 80 / (100 + DEPTH),
 			cursor: status === 'free' || status === 'selected' ? 'pointer' : 'default',
-			zIndex: Math.ceil(pos.y + pos.x * SIZE_Y + pos.layer * SIZE_X * SIZE_Y),
+			zIndex: (pos.y * 2 + pos.x * 2 + pos.layer * (SIZE_X * 2 + SIZE_Y * 2)) * 10,
 			boxShadow: '0.5rem 0 5px rgba(0, 0, 0, .25)',
 			opacity: status === 'matched' ? 0 : 1,
 			pointerEvents: status === 'free' || status === 'selected' ? 'auto' : 'none',
@@ -66,7 +66,7 @@ export default function Tile({pos, code, id, status, tileset, onClick}: TileProp
 			backgroundColor: status === 'selected' ? 'rgba(255, 0, 0, .1)' : 'rgba(0, 0, 0, .6)',
 			position: 'absolute',
 			width: '100%',
-			height: '100%'
+			height: '100%',
 		}
   };
 
