@@ -59,6 +59,9 @@ function App() {
 			tempLevel.splice(tempLevel.indexOf(pos2), 1);
 			nextLevel.push(pos1, pos2);
 		} while (tempLevel.length > 0);
+
+		// nextLevel.forEach(pos => console.log(pos.x, pos.y, pos.layer));	// debug
+		
 		return nextLevel;
 	}
 
