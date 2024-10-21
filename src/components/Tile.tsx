@@ -39,7 +39,7 @@ export default function Tile({pos, code, id, status, tileset, onClick}: TileProp
 			aspectRatio: 80 / (100 + DEPTH),
 			cursor: status === 'free' || status === 'selected' ? 'pointer' : 'default',
 			zIndex: (pos.y * 2 + pos.x * 2 + pos.layer * (SIZE_X * 2 + SIZE_Y * 2)) * 10,
-			boxShadow: '0.5rem 0 5px rgba(0, 0, 0, .25)',
+			boxShadow: '0.5rem 0 2px rgba(0, 0, 0, .25)',
 			opacity: status === 'matched' ? 0 : 1,
 			pointerEvents: status === 'free' || status === 'selected' ? 'auto' : 'none',
     },
