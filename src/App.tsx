@@ -10,12 +10,12 @@ import loseIcon from './assets/lose.svg';
 
 
 function App() {
-	const seed = 20240914;		// debug
-	// const seed = parseInt(
-	// 	new Date().getFullYear().toString() +
-	// 	new Date().getMonth().toString().padStart(2, '0') +
-	// 	new Date().getDate().toString().padStart(2, '0')
-	// );
+	// const seed = 20240914;		// debug
+	const seed = parseInt(
+		new Date().getFullYear().toString() +
+		new Date().getMonth().toString().padStart(2, '0') +
+		new Date().getDate().toString().padStart(2, '0')
+	);
 
 	const {getRandom} = useRandom(seed);
 	const {isPositionFree} = useGrid();
