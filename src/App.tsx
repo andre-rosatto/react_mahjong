@@ -26,9 +26,9 @@ function App() {
 	
 
 	function shuffle(): Array<TilePosition> {
-		const levelIdx = LEVELS.length - 1;		// debug
+		// const levelIdx = LEVELS.length - 1;		// debug
 		// const levelIdx = 2;		// debug
-		// const levelIdx = Math.floor(getRandom() * LEVELS.length);
+		const levelIdx = Math.floor(getRandom() * LEVELS.length);
 		console.log('levelIdx', levelIdx);
 
 		// return LEVELS[levelIdx];		// debug
@@ -65,11 +65,6 @@ function App() {
 		return nextLevel;
 	}
 
-	const handleGameEnd = (status: 'win' | 'lose') => {
-		setStatus(status);
-		console.log('game over', status);
-	}
-
   return (
     <div className='pt-10 bg-green-900 min-h-screen relative font-concert1 text-white'>
       {/* board */}
@@ -77,7 +72,7 @@ function App() {
 				tileset={tileset}
 				level={level}
 				seed={seed}
-				onGameEnd={handleGameEnd}
+				onGameEnd={status => setStatus(status)}
 				onRestart={() => setStatus('')}
 			/>
 

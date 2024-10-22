@@ -4680,11 +4680,11 @@ const LEVELS: Array<Array<TilePosition>> = [
 	],
 
 	// pyramid 2
-	[
-		// layer 0
-		{ x: 4.5, y: 0, layer: 0 },
-		{ x: 5.5, y: 0, layer: 0 },
-	]
+	// [
+	// 	// layer 0
+	// 	{ x: 4.5, y: 0, layer: 0 },
+	// 	{ x: 5.5, y: 0, layer: 0 },
+	// ]
 ];
 
 export default LEVELS;
