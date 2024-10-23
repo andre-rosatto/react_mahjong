@@ -14,14 +14,14 @@ export interface BoardProps {
 	onRestart: () => void;
 }
 
-type Modal = null | 'confirm' | 'help';
+type ModalType = null | 'confirm' | 'help';
 
 export default function Game({tileset, level, seed, onGameEnd, onRestart}: BoardProps) {
 	const {setSeed, getRandom} = useRandom(seed);
   const [selectedId, setSelectedId] = useState<null | number>(null);
 	const {isPositionFree} = useGrid();
 	const [tiles, setTiles] = useState<Array<TileData>>(getTiles());
-	const [modal, setModal] = useState<Modal>(null);
+	const [modal, setModal] = useState<ModalType>(null);
 
 	function getTiles(): Array<TileData> {
 		const tempCodes: number[] = Array.from({length: Math.floor(level.length / 2)}, (_, idx) => idx % 36);
