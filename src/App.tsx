@@ -25,8 +25,8 @@ function App() {
 	
 
 	function shuffle(): Array<TilePosition> {
-		const levelIdx = LEVELS.length - 1;		// debug
-		// const levelIdx = Math.floor(getRandom() * LEVELS.length);
+		// const levelIdx = LEVELS.length - 1;		// debug
+		const levelIdx = Math.floor(getRandom() * LEVELS.length);
 		// console.log('levelIdx', levelIdx);		// debug
 
 		// return LEVELS[levelIdx];		// debug
