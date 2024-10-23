@@ -1046,7 +1046,6 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 9.5, y: 5, layer: 3 },
 		{ x: 10.5, y: 5, layer: 3 },
 	],
-
 		
 	// big mountain
 	[

@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
 			fontFamily: {
-        'concert1': ['Concert One', 'sans-serif']
+        concert1: ['Concert One', 'sans-serif']
       },
 			keyframes: {
 				'slide-right': {
