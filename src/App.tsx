@@ -10,12 +10,20 @@ import loseIcon from './assets/lose.svg';
 
 
 function App() {
+	const date = new Date().toLocaleString([], {day: '2-digit', month: '2-digit', year: 'numeric'});
+	
 	// const seed = 20240914;		// debug
 	const seed = parseInt(
-		new Date().getFullYear().toString() +
-		new Date().getMonth().toString().padStart(2, '0') +
-		new Date().getDate().toString().padStart(2, '0')
+		'20240914'
+		// date.getFullYear().toString() +
+		// date.getMonth().toString().padStart(2, '0') +
+		// date.getDate().toString().padStart(2, '0')
 	);
+	// const seed = parseInt(
+	// 	new Date().getFullYear().toString() +
+	// 	new Date().getMonth().toString().padStart(2, '0') +
+	// 	new Date().getDate().toString().padStart(2, '0')
+	// );
 
 	const {getRandom} = useRandom(seed);
 	const {isPositionFree} = useGrid();
@@ -71,6 +79,7 @@ function App() {
 				tileset={tileset}
 				level={level}
 				seed={seed}
+				date={date}
 				onGameEnd={status => setStatus(status)}
 				onRestart={() => setStatus('')}
 			/>

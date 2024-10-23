@@ -10,13 +10,14 @@ export interface BoardProps {
 	tileset: string;
 	level: Array<TilePosition>;
 	seed: number;
+	date: string;
 	onGameEnd: (status: 'win' | 'lose') => void;
 	onRestart: () => void;
 }
 
 type ModalType = null | 'confirm' | 'help';
 
-export default function Game({tileset, level, seed, onGameEnd, onRestart}: BoardProps) {
+export default function Game({tileset, level, seed, date, onGameEnd, onRestart}: BoardProps) {
 	const {setSeed, getRandom} = useRandom(seed);
   const [selectedId, setSelectedId] = useState<null | number>(null);
 	const {isPositionFree} = useGrid();
@@ -147,6 +148,7 @@ export default function Game({tileset, level, seed, onGameEnd, onRestart}: Board
 		<Infobar
 			tiles={tiles.filter(tile => tile.matchIdx === 0).length}
 			moves={getPairCount()}
+			date={date}
 			onHelp={() => setModal('help')}
 			onRestart={handleRestart}
 		/>
