@@ -13,36 +13,27 @@ function App() {
 	const date = new Date().toLocaleString([], {day: '2-digit', month: '2-digit', year: 'numeric'});
 	
 	// const seed = 20240914;		// debug
-	const seed = parseInt(
-		'20240914'
-		// date.getFullYear().toString() +
-		// date.getMonth().toString().padStart(2, '0') +
-		// date.getDate().toString().padStart(2, '0')
-	);
-	// const seed = parseInt(
-	// 	new Date().getFullYear().toString() +
-	// 	new Date().getMonth().toString().padStart(2, '0') +
-	// 	new Date().getDate().toString().padStart(2, '0')
-	// );
+	const seed = parseInt(date.replace(/\D/g, ''));
 
 	const {getRandom} = useRandom(seed);
 	const {isPositionFree} = useGrid();
 	const [level] = useState<Array<TilePosition>>(shuffle());
 	const [status, setStatus] = useState<'' | 'win' | 'lose'>('');
 
-	console.log('seed', seed);	// debug
+	// console.log('seed', seed);	// debug
+	// console.log('date', date);	// debug
 	
 
 	function shuffle(): Array<TilePosition> {
 		const levelIdx = LEVELS.length - 1;		// debug
 		// const levelIdx = Math.floor(getRandom() * LEVELS.length);
-		console.log('levelIdx', levelIdx);
+		// console.log('levelIdx', levelIdx);		// debug
 
 		// return LEVELS[levelIdx];		// debug
 		
 		let nextLevel: Array<TilePosition> = [];
 		let tempLevel = [...LEVELS[levelIdx]];
-		console.log(LEVELS[levelIdx].length);
+		// console.log(LEVELS[levelIdx].length);		// debug
 
 		if (LEVELS[levelIdx].length % 2 !== 0) {
 			console.log('odd # of tiles');
