@@ -1563,15 +1563,15 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 9.5, y: 2, layer: 3 },
 		{ x: 10.5, y: 2, layer: 3 },
 
-		{ x: 3.5, y: 5, layer: 3 },
-		{ x: 4.5, y: 5, layer: 3 },
+		{ x: 3.5, y: 4, layer: 3 },
+		{ x: 4.5, y: 4, layer: 3 },
+		{ x: 5.5, y: 4, layer: 3 },
 		{ x: 5.5, y: 5, layer: 3 },
-		{ x: 5.5, y: 6, layer: 3 },
 		
+		{ x: 8.5, y: 4, layer: 3 },
+		{ x: 9.5, y: 4, layer: 3 },
+		{ x: 10.5, y: 4, layer: 3 },
 		{ x: 8.5, y: 5, layer: 3 },
-		{ x: 9.5, y: 5, layer: 3 },
-		{ x: 10.5, y: 5, layer: 3 },
-		{ x: 8.5, y: 6, layer: 3 },
 	],
 	
 	// castle
