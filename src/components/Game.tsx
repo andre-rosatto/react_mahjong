@@ -1,4 +1,4 @@
-import { CSSProperties, useState } from "react";
+import { useState } from "react";
 import { TileData, TilePosition } from "../typings/types";
 import Tile, { TileStatus } from "./Tile";
 import useGrid from "../hooks/useGrid";
