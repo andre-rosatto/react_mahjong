@@ -22,14 +22,15 @@ function App() {
 
 	// console.log('seed', seed);	// debug
 	// console.log('date', date);	// debug
-	
 
 	function shuffle(): Array<TilePosition> {
 		// const levelIdx = LEVELS.length - 1;		// debug
+		// const levelIdx = 0;		// debug
 		const levelIdx = Math.floor(getRandom() * LEVELS.length);
 		// console.log('levelIdx', levelIdx);		// debug
 
 		// return LEVELS[levelIdx];		// debug
+
 		
 		let nextLevel: Array<TilePosition> = [];
 		let tempLevel = [...LEVELS[levelIdx]];
@@ -64,7 +65,7 @@ function App() {
 	}
 
   return (
-    <div className='pt-12 bg-green-900 min-h-screen relative font-concert1 text-white'>
+    <div className='pt-12 bg-green-900 min-h-screen relative font-concert1 text-white overflow-x-hidden'>
       {/* board */}
 			<Game
 				tileset={tileset}

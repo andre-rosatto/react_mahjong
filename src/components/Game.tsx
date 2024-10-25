@@ -120,28 +120,21 @@ export default function Game({tileset, level, seed, date, onGameEnd, onRestart}:
 		onRestart();
 	}
 
-	const style: CSSProperties = {
-		aspectRatio: 1200 / 915,
-		position: 'relative',
-		maxWidth: '900px',
-		margin: 'auto'
-	}
-
 	return (
 		<>
 		{/* tiles */}
-		<div style={style}>
-			{tiles.map(tile => (
-				<Tile
-					key={tile.id}
-					pos={tile.pos}
-					code={tile.code}
-					id={tile.id}
-					status={getTileStatus(tile)}
-					tileset={tileset}
-					onClick={handleTileClick}
-				/>
-			))}
+		<div className="m-auto max-w-[750px] aspect-[880/820] relative origin-top">
+				{tiles.map(tile => (
+					<Tile
+						key={tile.id}
+						pos={tile.pos}
+						code={tile.code}
+						id={tile.id}
+						status={getTileStatus(tile)}
+						tileset={tileset}
+						onClick={handleTileClick}
+					/>
+				))}
 		</div>
 
 		{/* infobar */}

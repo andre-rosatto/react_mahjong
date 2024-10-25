@@ -12,9 +12,9 @@ export interface TileProps {
   onClick: (id: number) => void;
 }
 
-const SIZE_X = 15;
+const SIZE_X = 12;
 const SIZE_Y = 9;
-const DEPTH = 15;
+const DEPTH = 10;
 
 export default function Tile({pos, code, id, status, tileset, onClick}: TileProps) {
   const style: {
