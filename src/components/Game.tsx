@@ -60,11 +60,11 @@ export default function Game({tileset, level, seed, date, onGameEnd, onRestart}:
           selectedTiles[1].matchIdx = 2;
 					// move tiles to match position based on their x position
 					if (selectedTiles[0].pos.x < selectedTiles[1].pos.x) {
-						selectedTiles[0].pos = { x: 6.5, y: 4.5, layer: 10 };
-						selectedTiles[1].pos = { x: 7.5, y: 4.5, layer: 10 };
+						selectedTiles[0].pos = { x: 5, y: 4.5, layer: 10 };
+						selectedTiles[1].pos = { x: 6, y: 4.5, layer: 10 };
 					} else {
-						selectedTiles[0].pos = { x: 7.5, y: 4.5, layer: 10 };
-						selectedTiles[1].pos = { x: 6.5, y: 4.5, layer: 10 };
+						selectedTiles[0].pos = { x: 6, y: 4.5, layer: 10 };
+						selectedTiles[1].pos = { x: 5, y: 4.5, layer: 10 };
 					}
           setSelectedId(null);
 
