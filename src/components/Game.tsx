@@ -27,7 +27,6 @@ export default function Game({tileset, level, seed, date, onGameEnd, onRestart}:
 
 	useEffect(() => {
 		setSizeX(Math.max(...tiles.map(tile => tile.pos.x)) + 1);
-		// setSizeX(5);
 	}, [tiles]);
 
 	function getTiles(): Array<TileData> {

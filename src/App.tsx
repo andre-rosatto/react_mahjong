@@ -9,14 +9,11 @@ import Confetti from './components/Confetti';
 import loseIcon from './assets/lose.svg';
 import winIcon from './assets/win.svg';
 
-// export const SIZE_X = 12;		// board width
 export const SIZE_Y = 9;		// board height
 export const DEPTH = 10;		// tile depth
 
 function App() {
 	const date = new Date().toLocaleString([], {day: '2-digit', month: '2-digit', year: 'numeric'});
-	
-	// const seed = 20240914;		// debug
 	const seed = parseInt(date.replace(/\D/g, ''));
 
 	const {getRandom} = useRandom(seed);
@@ -24,21 +21,11 @@ function App() {
 	const [level] = useState<Array<TilePosition>>(shuffle());
 	const [status, setStatus] = useState<'' | 'win' | 'lose'>('');
 
-	// console.log('seed', seed);	// debug
-	// console.log('date', date);	// debug
-
 	function shuffle(): Array<TilePosition> {
-		// const levelIdx = LEVELS.length - 1;		// debug
-		const levelIdx = 0;		// debug
-		// const levelIdx = Math.floor(getRandom() * LEVELS.length);
-		// console.log('levelIdx', levelIdx);		// debug
-
-		// return LEVELS[levelIdx];		// debug
-
+		const levelIdx = Math.floor(getRandom() * LEVELS.length);
 		
 		let nextLevel: Array<TilePosition> = [];
 		let tempLevel = [...LEVELS[levelIdx]];
-		// console.log(LEVELS[levelIdx].length);		// debug
 
 		if (LEVELS[levelIdx].length % 2 !== 0) {
 			console.log('odd # of tiles');
@@ -64,8 +51,6 @@ function App() {
 			nextLevel.push(pos1, pos2);
 			nextSizeX = Math.max(nextSizeX, pos1.x, pos2.x);
 		} while (tempLevel.length > 0);
-
-		// nextLevel.forEach(pos => console.log(pos.x, pos.y, pos.layer));	// debug
 		return nextLevel;
 	}
 
