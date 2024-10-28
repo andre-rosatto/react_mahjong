@@ -1,5 +1,5 @@
 import { CSSProperties, useEffect, useState } from "react";
-import { TileData, TilePosition } from "../typings/types";
+import { GameStatus, TileData, TilePosition } from "../typings/types";
 import Tile, { TileStatus } from "./Tile";
 import useGrid from "../hooks/useGrid";
 import useRandom from "../hooks/useRandom";
@@ -11,7 +11,7 @@ export interface BoardProps {
 	level: Array<TilePosition>;
 	seed: number;
 	date: string;
-	onGameEnd: (status: 'win' | 'lose') => void;
+	onGameEnd: (status: GameStatus) => void;
 	onRestart: () => void;
 }
 
@@ -36,7 +36,7 @@ export default function Game({tileset, level, seed, date, onGameEnd, onRestart}:
 			codes.push(tempCodes.splice(Math.floor(getRandom() * tempCodes.length), 1)[0]);
 		} while (tempCodes.length > 0);
 
-		const newTiles = level.map((pos, idx) => {
+		const nextTiles = level.map((pos, idx) => {
 			return {
 				pos: {
 					x: pos.x,
@@ -48,7 +48,7 @@ export default function Game({tileset, level, seed, date, onGameEnd, onRestart}:
 				matchIdx: 0
 			}
 		});
-		return newTiles;
+		return nextTiles;
 	}
 
 	const handleTileClick = (id: number): void => {

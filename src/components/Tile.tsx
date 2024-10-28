@@ -23,8 +23,8 @@ export default function Tile({pos, code, id, status, tileset, sizeX, onClick}: T
 	} = {
     base: {
 			position: 'absolute',
-			boxSizing: 'border-box',
-			border: `1px solid ${status === 'selected' ? 'red' : 'black'}`,
+			boxSizing: 'content-box',
+			border: `1px solid ${status === 'selected' ? 'red' : 'rgba(0, 0, 0, .25)'}`,
 			borderRadius: '8%',
 			overflow: 'hidden',
 			transition: status === 'matched' ? 'transform .5s, opacity .5s .75s' : 'none',
@@ -47,7 +47,10 @@ export default function Tile({pos, code, id, status, tileset, sizeX, onClick}: T
 			width: '100%',
 			background: 'linear-gradient(#ffedd5, #fed7aa)',
 			borderRadius: '8%',
-			boxShadow: `0 ${DEPTH}px 0 #be7e29`
+			boxShadow: `
+				0 ${DEPTH}px 0 #be7e29,
+				inset 0 2px 0 rgba(255, 255, 255, .25),
+				inset 0 -2px 0 rgba(0, 0, 0, .25)`
 		},
     img: {
       backgroundImage: `url(${tileset})`,

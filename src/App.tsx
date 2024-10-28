@@ -1,4 +1,4 @@
-import { TilePosition } from './typings/types.d';
+import { GameStatus, TilePosition } from './typings/types.d';
 import tileset from './assets/tiles.webp';
 import useRandom from './hooks/useRandom';
 import Game from './components/Game';
@@ -19,7 +19,7 @@ function App() {
 	const {getRandom} = useRandom(seed);
 	const {isPositionFree} = useGrid();
 	const [level] = useState<Array<TilePosition>>(shuffle());
-	const [status, setStatus] = useState<'' | 'win' | 'lose'>('');
+	const [status, setStatus] = useState<GameStatus>('');
 
 	function shuffle(): Array<TilePosition> {
 		const levelIdx = Math.floor(getRandom() * LEVELS.length);
@@ -55,7 +55,7 @@ function App() {
 	}
 
   return (
-    <div className='pt-12 bg-green-900 min-h-screen relative font-concert1 text-white'>
+    <div className='pt-8 bg-green-900 min-h-screen relative font-concert1 text-white'>
       {/* board */}
 			<Game
 				tileset={tileset}

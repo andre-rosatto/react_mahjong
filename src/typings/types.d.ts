@@ -10,3 +10,5 @@ export interface TileData {
 	code: number;
 	matchIdx: number;
 }
+
+export type GameStatus = '' | 'win' | 'lose';
