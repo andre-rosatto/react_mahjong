@@ -33,7 +33,7 @@ export default function Infobar({tiles, moves, date, onRestart, onHelp}: Infobar
 	}
 
 	return (
-		<div className="w-full px-2 fixed bottom-2 z-[8000] flex justify-between">
+		<div className="w-[750px] px-2 fixed bottom-2 z-[8000] flex justify-between max-w-full left-[50%] -translate-x-[50%]">
 
 			{/* game info */}
 			{/* date */}
