@@ -1,5 +1,6 @@
 import { CSSProperties } from "react";
 import { TilePosition } from "../typings/types";
+import { DEPTH, SIZE_Y } from "../App";
 
 export type TileStatus = 'free' | 'selected' | 'blocked' | 'matched';
 
@@ -9,18 +10,14 @@ export interface TileProps {
   id: number;
   status: TileStatus;
   tileset: string;
+	sizeX: number;
   onClick: (id: number) => void;
 }
 
-const SIZE_X = 12;
-const SIZE_Y = 9;
-const DEPTH = 10;
-
-export default function Tile({pos, code, id, status, tileset, onClick}: TileProps) {
+export default function Tile({pos, code, id, status, tileset, sizeX, onClick}: TileProps) {
   const style: {
 		base: CSSProperties,
 		bg: CSSProperties,
-		shadow: CSSProperties,
 		img: CSSProperties,
 		overlay: CSSProperties
 	} = {
@@ -30,15 +27,16 @@ export default function Tile({pos, code, id, status, tileset, onClick}: TileProp
 			border: `1px solid ${status === 'selected' ? 'red' : 'black'}`,
 			borderRadius: '8%',
 			overflow: 'hidden',
-			transition: status === 'matched' ? 'left .5s, top .5s, transform .5s, opacity .5s .75s' : 'none',
-			transform: `scale(${status === 'matched' ? '1.25' : '1'})`,
-			transformOrigin: pos.x < SIZE_X / 2 ? 'top right' : 'top left',
-      left: `${pos.x * 100 / SIZE_X}%`,
-      top: `${pos.y * (100 - 2) / 9 - pos.layer * (100 - 2) / SIZE_Y / (100 / DEPTH)}%`,
-      width: `${100 / SIZE_X}%`,
+			transition: status === 'matched' ? 'transform .5s, opacity .5s .75s' : 'none',
+			transform: `
+				translate(${pos.x * 100}%, ${pos.y * (100 - DEPTH) - pos.layer * DEPTH}%)
+				scale(${status === 'matched' ? '1.25' : '1'})
+			`,
+			transformOrigin: pos.x < sizeX / 2 ? 'top right' : 'top left',
+      width: `${100 / sizeX}%`,
 			aspectRatio: 80 / (100 + DEPTH),
 			cursor: status === 'free' || status === 'selected' ? 'pointer' : 'default',
-			zIndex: (pos.y * 2 + pos.x * 2 + pos.layer * (SIZE_X * 2 + SIZE_Y * 2)) * 10,
+			zIndex: (pos.y * 2 + pos.x * 2 + pos.layer * (sizeX * 2 + SIZE_Y * 2)) * 10,
 			boxShadow: '0.5rem 0 2px rgba(0, 0, 0, .25)',
 			opacity: status === 'matched' ? 0 : 1,
 			pointerEvents: status === 'free' || status === 'selected' ? 'auto' : 'none',
@@ -48,13 +46,8 @@ export default function Tile({pos, code, id, status, tileset, onClick}: TileProp
 			position: 'absolute',
 			width: '100%',
 			background: 'linear-gradient(#ffedd5, #fed7aa)',
-			borderRadius: '8%'
-		},
-		shadow: {
-			position: 'absolute',
-			width: '100%',
-			height: '100%',
-			backgroundColor: '#be7e29'
+			borderRadius: '8%',
+			boxShadow: `0 ${DEPTH}px 0 #be7e29`
 		},
     img: {
       backgroundImage: `url(${tileset})`,
@@ -75,12 +68,12 @@ export default function Tile({pos, code, id, status, tileset, onClick}: TileProp
       style={style.base}
       onClick={() => {if (status === 'free' || status === 'selected') onClick(id)}}
     >
-			{/* shadow */}
-			<div style={style.shadow}></div>
 			{/* background */}
 			<div style={style.bg}></div>
+
       {/* image */}
       <div style={style.img} className='absolute w-full' />
+
 			{/* overlay */}
 			{(status === 'selected' || status === 'blocked') && <div style={style.overlay}></div>}
     </div>

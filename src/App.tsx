@@ -9,6 +9,9 @@ import Confetti from './components/Confetti';
 import loseIcon from './assets/lose.svg';
 import winIcon from './assets/win.svg';
 
+// export const SIZE_X = 12;		// board width
+export const SIZE_Y = 9;		// board height
+export const DEPTH = 10;		// tile depth
 
 function App() {
 	const date = new Date().toLocaleString([], {day: '2-digit', month: '2-digit', year: 'numeric'});
@@ -26,8 +29,8 @@ function App() {
 
 	function shuffle(): Array<TilePosition> {
 		// const levelIdx = LEVELS.length - 1;		// debug
-		// const levelIdx = 0;		// debug
-		const levelIdx = Math.floor(getRandom() * LEVELS.length);
+		const levelIdx = 0;		// debug
+		// const levelIdx = Math.floor(getRandom() * LEVELS.length);
 		// console.log('levelIdx', levelIdx);		// debug
 
 		// return LEVELS[levelIdx];		// debug
@@ -43,6 +46,7 @@ function App() {
 		}
 
 		const getEmptyPositions = (): Array<TilePosition> => tempLevel.filter(pos => isPositionFree(pos, tempLevel));
+		let nextSizeX = 0;
 		
 		do {
 			const emptyPositions = getEmptyPositions();
@@ -58,15 +62,15 @@ function App() {
 			tempLevel.splice(tempLevel.indexOf(pos1), 1);
 			tempLevel.splice(tempLevel.indexOf(pos2), 1);
 			nextLevel.push(pos1, pos2);
+			nextSizeX = Math.max(nextSizeX, pos1.x, pos2.x);
 		} while (tempLevel.length > 0);
 
 		// nextLevel.forEach(pos => console.log(pos.x, pos.y, pos.layer));	// debug
-		
 		return nextLevel;
 	}
 
   return (
-    <div className='pt-12 bg-green-900 min-h-screen relative font-concert1 text-white overflow-x-hidden'>
+    <div className='pt-12 bg-green-900 min-h-screen relative font-concert1 text-white'>
       {/* board */}
 			<Game
 				tileset={tileset}

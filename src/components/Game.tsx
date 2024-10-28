@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { CSSProperties, useEffect, useState } from "react";
 import { TileData, TilePosition } from "../typings/types";
 import Tile, { TileStatus } from "./Tile";
 import useGrid from "../hooks/useGrid";
@@ -21,8 +21,14 @@ export default function Game({tileset, level, seed, date, onGameEnd, onRestart}:
 	const {setSeed, getRandom} = useRandom(seed);
   const [selectedId, setSelectedId] = useState<null | number>(null);
 	const {isPositionFree} = useGrid();
+	const [sizeX, setSizeX] = useState(12);
 	const [tiles, setTiles] = useState<Array<TileData>>(getTiles());
 	const [modal, setModal] = useState<ModalType>(null);
+
+	useEffect(() => {
+		setSizeX(Math.max(...tiles.map(tile => tile.pos.x)) + 1);
+		// setSizeX(5);
+	}, [tiles]);
 
 	function getTiles(): Array<TileData> {
 		const tempCodes: number[] = Array.from({length: Math.floor(level.length / 2)}, (_, idx) => idx % 36);
@@ -30,7 +36,7 @@ export default function Game({tileset, level, seed, date, onGameEnd, onRestart}:
 		do {
 			codes.push(tempCodes.splice(Math.floor(getRandom() * tempCodes.length), 1)[0]);
 		} while (tempCodes.length > 0);
-		
+
 		const newTiles = level.map((pos, idx) => {
 			return {
 				pos: {
@@ -60,11 +66,11 @@ export default function Game({tileset, level, seed, date, onGameEnd, onRestart}:
           selectedTiles[1].matchIdx = 2;
 					// move tiles to match position based on their x position
 					if (selectedTiles[0].pos.x < selectedTiles[1].pos.x) {
-						selectedTiles[0].pos = { x: 5, y: 4.5, layer: 10 };
-						selectedTiles[1].pos = { x: 6, y: 4.5, layer: 10 };
+						selectedTiles[0].pos = { x: sizeX / 2 - 1, y: 4.5, layer: 10 };
+						selectedTiles[1].pos = { x: sizeX / 2, y: 4.5, layer: 10 };
 					} else {
-						selectedTiles[0].pos = { x: 6, y: 4.5, layer: 10 };
-						selectedTiles[1].pos = { x: 5, y: 4.5, layer: 10 };
+						selectedTiles[0].pos = { x: sizeX / 2, y: 4.5, layer: 10 };
+						selectedTiles[1].pos = { x: sizeX / 2 - 1, y: 4.5, layer: 10 };
 					}
           setSelectedId(null);
 
@@ -120,10 +126,17 @@ export default function Game({tileset, level, seed, date, onGameEnd, onRestart}:
 		onRestart();
 	}
 
+	const style: CSSProperties = {
+		width: `calc(${Math.min(sizeX * 80, window.innerWidth)}px - 1rem)`,
+	}	
+
 	return (
 		<>
 		{/* tiles */}
-		<div className="m-auto max-w-[750px] aspect-[880/820] relative origin-top">
+		<div
+			className="m-auto max-w-[600px] relative origin-top"
+			style={style}
+		>
 				{tiles.map(tile => (
 					<Tile
 						key={tile.id}
@@ -133,6 +146,7 @@ export default function Game({tileset, level, seed, date, onGameEnd, onRestart}:
 						status={getTileStatus(tile)}
 						tileset={tileset}
 						onClick={handleTileClick}
+						sizeX={sizeX}
 					/>
 				))}
 		</div>
