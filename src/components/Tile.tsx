@@ -33,7 +33,7 @@ export default function Tile({pos, code, id, status, tileset, sizeX, onClick}: T
 				scale(${status === 'matched' ? '1.25' : '1'})
 			`,
 			transformOrigin: pos.x < sizeX / 2 ? 'top right' : 'top left',
-      width: `${100 / sizeX}%`,
+      width: `calc(${100 / sizeX}% - 2px)`,
 			aspectRatio: 80 / (100 + DEPTH),
 			cursor: status === 'free' || status === 'selected' ? 'pointer' : 'default',
 			zIndex: (pos.y * 2 + pos.x * 2 + pos.layer * (sizeX * 2 + SIZE_Y * 2)) * 10,
