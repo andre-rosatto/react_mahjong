@@ -27,6 +27,7 @@ function App() {
 		let nextLevel: Array<TilePosition> = [];
 		let tempLevel = [...LEVELS[levelIdx]];
 
+		// if there is an odd # of tiles, there's something wrong with the level and it should be corrected
 		if (LEVELS[levelIdx].length % 2 !== 0) {
 			console.log('odd # of tiles');
 			return [];
