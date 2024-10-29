@@ -4,7 +4,7 @@ import useRandom from './hooks/useRandom';
 import Game from './components/Game';
 import { useState } from 'react';
 import useGrid from './hooks/useGrid';
-import LEVELS from './assets/levels';
+import LEVELS from './levels';
 import Confetti from './components/Confetti';
 import loseIcon from './assets/lose.svg';
 import winIcon from './assets/win.svg';
