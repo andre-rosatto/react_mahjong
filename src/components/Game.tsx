@@ -1,4 +1,4 @@
-import { CSSProperties, useEffect, useState } from "react";
+import { CSSProperties, useState } from "react";
 import { GameStatus, TileData, TilePosition } from "../typings/types";
 import Tile, { TileStatus } from "./Tile";
 import useGrid from "../hooks/useGrid";
@@ -21,13 +21,9 @@ export default function Game({tileset, level, seed, date, onGameEnd, onRestart}:
 	const {setSeed, getRandom} = useRandom(seed);
   const [selectedId, setSelectedId] = useState<null | number>(null);
 	const {isPositionFree} = useGrid();
-	const [sizeX, setSizeX] = useState(12);
 	const [tiles, setTiles] = useState<Array<TileData>>(getTiles());
+	const [sizeX, _] = useState(() => Math.max(...tiles.map(tile => tile.pos.x)) + 1);
 	const [modal, setModal] = useState<ModalType>(null);
-
-	useEffect(() => {
-		setSizeX(Math.max(...tiles.map(tile => tile.pos.x)) + 1);
-	}, [tiles]);
 
 	function getTiles(): Array<TileData> {
 		const tempCodes: number[] = Array.from({length: Math.floor(level.length / 2)}, (_, idx) => idx % 36);
