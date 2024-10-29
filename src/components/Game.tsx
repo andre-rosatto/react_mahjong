@@ -22,8 +22,9 @@ export default function Game({tileset, level, seed, date, onGameEnd, onRestart}:
   const [selectedId, setSelectedId] = useState<null | number>(null);
 	const {isPositionFree} = useGrid();
 	const [tiles, setTiles] = useState<Array<TileData>>(getTiles());
-	const [sizeX, _] = useState(() => Math.max(...tiles.map(tile => tile.pos.x)) + 1);
 	const [modal, setModal] = useState<ModalType>(null);
+	
+	const sizeX = Math.max(...tiles.map(tile => tile.pos.x)) + 1;
 
 	function getTiles(): Array<TileData> {
 		const tempCodes: number[] = Array.from({length: Math.floor(level.length / 2)}, (_, idx) => idx % 36);
