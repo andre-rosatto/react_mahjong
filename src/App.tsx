@@ -2,7 +2,7 @@ import { GameStatus, TilePosition } from './typings/types.d';
 import tileset from './assets/tiles.webp';
 import useRandom from './hooks/useRandom';
 import Game from './components/Game';
-import { useMemo, useState } from 'react';
+import { useRef, useState } from 'react';
 import LEVELS from './utils/levels';
 import Confetti from './components/Confetti';
 import loseIcon from './assets/lose.svg';
@@ -37,7 +37,13 @@ export function isPositionFree(pos: TilePosition, level: Array<TilePosition>): b
 export default function App() {
 	const {getRandom} = useRandom(seed);
 	const [status, setStatus] = useState<GameStatus>('');
-	const level = useMemo(() => {
+	const level = useRef(shuffle());
+
+	/**
+	 * Shuffles the level in a way that it is always winnable.
+	 * @returns The randomized TilePosition array
+	 */
+	function shuffle(): TilePosition[] {
 		// shuffles the level
 		const levelIdx = Math.floor(getRandom() * LEVELS.length);
 		
@@ -70,14 +76,14 @@ export default function App() {
 			nextSizeX = Math.max(nextSizeX, pos1.x, pos2.x);
 		} while (tempLevel.length > 0);
 		return nextLevel;
-	}, [getRandom]);
+	}
 
 	return (
     <div className='pt-8 bg-green-900 min-h-screen relative font-concert1 text-white'>
       {/* board */}
 			<Game
 				tileset={tileset}
-				level={level}
+				level={level.current}
 				seed={seed}
 				date={date}
 				onGameEnd={status => setStatus(status)}
