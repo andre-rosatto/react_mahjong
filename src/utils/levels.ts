@@ -1,4 +1,4 @@
-import { TilePosition } from "./typings/types";
+import { TilePosition } from "../typings/types";
 
 const LEVELS: Array<Array<TilePosition>> = [
 	// 7 pyramids

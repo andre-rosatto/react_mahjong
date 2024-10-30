@@ -3,8 +3,8 @@ import tileset from './assets/tiles.webp';
 import useRandom from './hooks/useRandom';
 import Game from './components/Game';
 import { useMemo, useState } from 'react';
-import useGrid from './hooks/useGrid';
-import LEVELS from './levels';
+import { isPositionFree } from './utils/grid';
+import LEVELS from './utils/levels';
 import Confetti from './components/Confetti';
 import loseIcon from './assets/lose.svg';
 import winIcon from './assets/win.svg';
@@ -16,9 +16,8 @@ export const DEPTH = 10;		// tile depth
 const date = new Date().toLocaleString([], {day: '2-digit', month: '2-digit', year: 'numeric'});
 const seed = parseInt(date.replace(/\D/g, ''));
 
-function App() {
+export default function App() {
 	const {getRandom} = useRandom(seed);
-	const {isPositionFree} = useGrid();
 	const [status, setStatus] = useState<GameStatus>('');
 	const level = useMemo(() => {
 		// shuffles the level
@@ -53,7 +52,7 @@ function App() {
 			nextSizeX = Math.max(nextSizeX, pos1.x, pos2.x);
 		} while (tempLevel.length > 0);
 		return nextLevel;
-	}, [getRandom, isPositionFree]);
+	}, [getRandom]);
 	
 	return (
     <div className='pt-8 bg-green-900 min-h-screen relative font-concert1 text-white'>
@@ -79,5 +78,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

@@ -1,7 +1,7 @@
 import { CSSProperties, useMemo, useState } from "react";
 import { GameStatus, TileData, TilePosition } from "../typings/types";
 import Tile, { TileStatus } from "./Tile";
-import useGrid from "../hooks/useGrid";
+import { isPositionFree } from "../utils/grid";
 import useRandom from "../hooks/useRandom";
 import Infobar from "./Infobar";
 import { Modal } from "./Modal";
@@ -20,7 +20,6 @@ type ModalType = null | 'confirm' | 'help';
 export default function Game({tileset, level, seed, date, onGameEnd, onRestart}: BoardProps) {
 	const {setSeed, getRandom} = useRandom(seed);
   const [selectedId, setSelectedId] = useState<null | number>(null);
-	const {isPositionFree} = useGrid();
 	const [tiles, setTiles] = useState<Array<TileData>>(getTiles());
 	const [modal, setModal] = useState<ModalType>(null);
 	const sizeX = useMemo(() => Math.max(...tiles.map(tile => tile.pos.x)) + 1, [tiles]);
