@@ -8,10 +8,20 @@ interface InfobarProps {
 	onHelp: () => void;
 }
 
+/**
+ * Infobar component showing the game date, remaining tile count, moves count, and the menu.
+ * @param tiles Number to be shown as how many tiles are on the board;
+ * @param moves Number to be shown as how many moves are possible;
+ * @param date The current date;
+ * @param onRestart Callback function called on clicking restart;
+ * @param onHelp Callback function called on clicking help.
+ */
 export default function Infobar({tiles, moves, date, onRestart, onHelp}: InfobarProps) {
+
 	const [menuVisible, setMenuVisible] = useState<boolean>(false);
 
 	useEffect(() => {
+		// Adds a click event listener to hide the menu if the player clicks out of it.
 		const handleClick = () => {
 			setMenuVisible(false);
 		}

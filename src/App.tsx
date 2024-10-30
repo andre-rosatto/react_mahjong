@@ -3,7 +3,6 @@ import tileset from './assets/tiles.webp';
 import useRandom from './hooks/useRandom';
 import Game from './components/Game';
 import { useMemo, useState } from 'react';
-import { isPositionFree } from './utils/grid';
 import LEVELS from './utils/levels';
 import Confetti from './components/Confetti';
 import loseIcon from './assets/lose.svg';
@@ -15,6 +14,25 @@ export const DEPTH = 10;		// tile depth
 // seed for the randomizer, based on the current date
 const date = new Date().toLocaleString([], {day: '2-digit', month: '2-digit', year: 'numeric'});
 const seed = parseInt(date.replace(/\D/g, ''));
+
+/**
+ * Checks if there are no tiles blocking a tile at position x, y, layer.
+ * @param pos grid position of the tile;
+ * @param level array containing all tiles.
+ * @returns true if the tile is free.
+*/	
+export function isPositionFree(pos: TilePosition, level: Array<TilePosition>): boolean {
+	const {x, y, layer} = pos;
+	// check on top
+	if (level.some(t => t.layer - layer >= 1 && Math.abs(t.x - x) < 1 && Math.abs(t.y - y) < 1)) {
+		return false;
+	}
+	// check sideways
+	return !(
+		level.some(t => t.layer === layer && t.x < x && x - t.x <= 1 && Math.abs(t.y - y) < 1)
+		&& level.some(t => t.layer === layer && t.x > x && t.x - x <= 1 && Math.abs(t.y - y) < 1)
+	);
+};
 
 export default function App() {
 	const {getRandom} = useRandom(seed);
@@ -53,7 +71,7 @@ export default function App() {
 		} while (tempLevel.length > 0);
 		return nextLevel;
 	}, [getRandom]);
-	
+
 	return (
     <div className='pt-8 bg-green-900 min-h-screen relative font-concert1 text-white'>
       {/* board */}

@@ -18,6 +18,13 @@ interface IConfetti {
 	speedR: number;
 }
 
+/**
+ * Confetti component.
+ * @param count The number of confetti to be generated (default 50);
+ * @param colors Array of colors to be randomly picked (default ['red', 'blue', 'cyan', 'green', 'yellow', 'white', 'pink', 'orange', 'purple']);
+ * @param zIndex Z-index of the component (default Number.MAX_SAFE_INTEGER).
+ * @returns 
+ */
 export default function Confetti({
 		count = 50,
 		colors = ['red', 'blue', 'cyan', 'green', 'yellow', 'white', 'pink', 'orange', 'purple'],
@@ -41,9 +48,22 @@ export default function Confetti({
 	));
 
 	useEffect(() => {
+		// resize event
+		const handleResize = () => {
+			if (canvas.current) {
+				canvas.current.width = window.innerWidth;
+				canvas.current.height = window.innerHeight;
+			}
+		}
+		handleResize();
+		window.addEventListener('resize', handleResize);
+		return () => window.removeEventListener('resize', handleResize);
+	}, []);
+
+	useEffect(()=> {
 		// confetti animation
 		const updateConfetti = () => {
-			if (!canvas.current || !isCanvas(canvas.current)) return;
+			if (!isCanvas(canvas.current)) return;
 			const ctx = canvas.current.getContext('2d');
 			if (!ctx) return;
 
@@ -68,18 +88,8 @@ export default function Confetti({
 			});
 			requestAnimationFrame(updateConfetti);
 		}
-		requestAnimationFrame(updateConfetti);
-
-		// resize event
-		const handleResize = () => {
-			if (canvas.current) {
-				canvas.current.width = window.innerWidth;
-				canvas.current.height = window.innerHeight;
-			}
-		}
-		handleResize();
-		window.addEventListener('resize', handleResize);
-		return () => window.removeEventListener('resize', handleResize);
+		const animation = requestAnimationFrame(updateConfetti);
+		return () => cancelAnimationFrame(animation);
 	}, [canvas]);
 
 	const isCanvas = (el: any): el is HTMLCanvasElement => 'getContext' in el;

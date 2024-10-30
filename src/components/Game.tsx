@@ -1,7 +1,7 @@
 import { CSSProperties, useMemo, useState } from "react";
 import { GameStatus, TileData, TilePosition } from "../typings/types";
 import Tile, { TileStatus } from "./Tile";
-import { isPositionFree } from "../utils/grid";
+import { isPositionFree } from "../App";
 import useRandom from "../hooks/useRandom";
 import Infobar from "./Infobar";
 import { Modal } from "./Modal";
@@ -17,6 +17,15 @@ export interface BoardProps {
 
 type ModalType = null | 'confirm' | 'help';
 
+/**
+ * Game component.
+ * Responsible for setting up the game and creating the tiles.
+ * @param tileset The URL of the spritesheet to be used for the tile images;
+ * @param level The array of TilePositions containing the positions for the tiles;
+ * @param seed The seed to be used for the random number generator;
+ * @param onGameEnd Callback function to be called when the game ends;
+ * @param onRestart Callback function to be callled when the player restarts the level.
+ */
 export default function Game({tileset, level, seed, date, onGameEnd, onRestart}: BoardProps) {
 	const {setSeed, getRandom} = useRandom(seed);
   const [selectedId, setSelectedId] = useState<null | number>(null);
@@ -24,6 +33,10 @@ export default function Game({tileset, level, seed, date, onGameEnd, onRestart}:
 	const [modal, setModal] = useState<ModalType>(null);
 	const sizeX = useMemo(() => Math.max(...tiles.map(tile => tile.pos.x)) + 1, [tiles]);
 
+	/**
+	 * Gets the tile collection in a way that is always possible to win.
+	 * @returns The shuffled array of tiles.
+	 */
 	function getTiles(): Array<TileData> {
 		const tempCodes: number[] = Array.from({length: Math.floor(level.length / 2)}, (_, idx) => idx % 36);
 		const codes: number[] = [];
@@ -46,6 +59,10 @@ export default function Game({tileset, level, seed, date, onGameEnd, onRestart}:
 		return nextTiles;
 	}
 
+	/**
+	 * Handles player clicking on a tile
+	 * @param id The id of the tile clicked
+	 */
 	const handleTileClick = (id: number): void => {
     if (id === selectedId) {
       // deselect current tile
@@ -86,12 +103,21 @@ export default function Game({tileset, level, seed, date, onGameEnd, onRestart}:
     }
   };
 
+	/**
+	 * Returns the status of a tile.
+	 * @param	tile The tile to be checked.
+	 * @returns The status of the tile.
+	 */
   const getTileStatus = (tile: TileData): TileStatus => {
     if (tile.matchIdx) return 'matched';
     if (tile.id === selectedId) return 'selected';
 		return isPositionFree(tile.pos, tiles.filter(t => !t.matchIdx).map(t => t.pos)) ? 'free' : 'blocked';
   };
 
+	/**
+	 * Gets how many moves are possible currently.
+	 * @returns The number of pairs of matching tiles.
+	 */
 	const getPairCount = (): number => {
 		const freeTiles = tiles.filter(tile => !tile.matchIdx && isPositionFree(tile.pos, tiles.filter(t => !t.matchIdx).map(t => t.pos)));
 		let result = 0;
@@ -103,7 +129,10 @@ export default function Game({tileset, level, seed, date, onGameEnd, onRestart}:
 		return Math.floor(result / 2);
 	}
 
-	const handleRestart = () => {
+	/**
+	 * Handles the player clicking on restart, confirming the restart in case the game is not over.
+	 */
+	const handleRestart = (): void => {
 		if (!tiles.some(tile => tile.matchIdx === 0) || getPairCount() === 0) {
 			// game is over
 			restartLevel();
@@ -113,7 +142,10 @@ export default function Game({tileset, level, seed, date, onGameEnd, onRestart}:
 		}
 	}
 
-	const restartLevel = () => {
+	/**
+	 * Restarts the level.
+	 */
+	const restartLevel = (): void => {
 		setSelectedId(null);
 		setSeed(seed);
 		setTiles(getTiles());

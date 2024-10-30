@@ -14,6 +14,17 @@ export interface TileProps {
   onClick: (id: number) => void;
 }
 
+/**
+ * Tile component
+ * @param pos Grid position of the tile as TilePosition;
+ * @param code Number from 0 to 35 indexing a tile image;
+ * @param id The tile's unique ID;
+ * @param status The tile status as TileStatus;
+ * @param tileset The URL of the spritesheet to be used for the tile image;
+ * @param sizeX The total width of the board in grid units;
+ * @param onClick Callback function called when the tile is clicked.
+ * @returns 
+ */
 export default function Tile({pos, code, id, status, tileset, sizeX, onClick}: TileProps) {
   const style: {
 		base: CSSProperties,

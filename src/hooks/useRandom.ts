@@ -3,9 +3,20 @@ interface IUseRandom {
 	getRandom: () => number;
 }
 
+/**
+ * Hook for using the Mulberry32 random number generator.
+ * The numbers are generated based on a seed.
+ * Therefore, using the same seed will always generate the same sequence of numbers.
+ * @param seed A initial number to be used for the random number generator.
+ * @returns An object containing two functions: ```getRandom() => number```: gets the next random number; ```setRandom(seed) => void```: resets the random number generator with a new seed.
+ */
 export default function useRandom(seed: number): IUseRandom {
 	const generator = Mulberry32();
 	
+	/**
+	 * Resets the seed for the random number generator.
+	 * @param newSeed The new seed to be used for the generator.
+	 */
 	const setSeed = (newSeed: number) => {
 		seed = newSeed;
 	}
@@ -21,6 +32,10 @@ export default function useRandom(seed: number): IUseRandom {
 		}
 	}
 
+	/**
+	 * Gets the next random number.
+	 * @returns A random number between 0 and 1.
+	 */
 	const getRandom = (): number => {
 		return generator();
 	}

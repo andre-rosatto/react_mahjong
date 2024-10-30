@@ -3,6 +3,10 @@ interface ModalProps {
 	children: JSX.Element
 }
 
+/**
+ * Modal window component.
+ * @param onClose Callback function called when the window is closed.
+ */
 export function Modal({children, onClose}: ModalProps) {
 	return (
 		<div
