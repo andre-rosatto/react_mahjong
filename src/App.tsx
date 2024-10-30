@@ -2,7 +2,7 @@ import { GameStatus, TilePosition } from './typings/types.d';
 import tileset from './assets/tiles.webp';
 import useRandom from './hooks/useRandom';
 import Game from './components/Game';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import useGrid from './hooks/useGrid';
 import LEVELS from './levels';
 import Confetti from './components/Confetti';
@@ -12,16 +12,16 @@ import winIcon from './assets/win.svg';
 export const SIZE_Y = 9;		// board height
 export const DEPTH = 10;		// tile depth
 
-function App() {
-	const date = new Date().toLocaleString([], {day: '2-digit', month: '2-digit', year: 'numeric'});
-	const seed = parseInt(date.replace(/\D/g, ''));
+// seed for the randomizer, based on the current date
+const date = new Date().toLocaleString([], {day: '2-digit', month: '2-digit', year: 'numeric'});
+const seed = parseInt(date.replace(/\D/g, ''));
 
+function App() {
 	const {getRandom} = useRandom(seed);
 	const {isPositionFree} = useGrid();
-	const [level] = useState<Array<TilePosition>>(shuffle());
 	const [status, setStatus] = useState<GameStatus>('');
-
-	function shuffle(): Array<TilePosition> {
+	const level = useMemo(() => {
+		// shuffles the level
 		const levelIdx = Math.floor(getRandom() * LEVELS.length);
 		
 		let nextLevel: Array<TilePosition> = [];
@@ -53,9 +53,9 @@ function App() {
 			nextSizeX = Math.max(nextSizeX, pos1.x, pos2.x);
 		} while (tempLevel.length > 0);
 		return nextLevel;
-	}
-
-  return (
+	}, [getRandom, isPositionFree]);
+	
+	return (
     <div className='pt-8 bg-green-900 min-h-screen relative font-concert1 text-white'>
       {/* board */}
 			<Game
