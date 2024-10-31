@@ -1,8 +1,10 @@
 export default class Randomizer {
 	private _generator = this.Mulberry32();
 	private _current;
+	private _seed;
 
 	constructor(seed: number) {
+		this._seed = seed;
 		this._current = seed;
 	}
 
@@ -18,16 +20,16 @@ export default class Randomizer {
 	}
 	
 	public set seed(value : number) {
-		this.seed = value;
+		this._seed = value;
 		this._current = value;
 	}
 	
 	public get seed() : number {
-		return this.seed;
+		return this._seed;
 	}
 
 	public reset(): void {
-		this._current = this.seed;
+		this._current = this._seed;
 	}
 
 	public next (): number {
