@@ -38,20 +38,17 @@ export default function App() {
 	const {getRandom} = useRandom(seed);
 	const [status, setStatus] = useState<GameStatus>('');
 	const level = useMemo(() => {
-		console.log('render');
-		
 		// shuffles the level
 		const levelIdx = Math.floor(getRandom() * LEVELS.length);
 		
-		let nextLevel: Array<TilePosition> = [];
-		let tempLevel = [...LEVELS[levelIdx]];
-
-		// if there is an odd # of tiles, there's something wrong with the level and it should be corrected
+		// if there is an odd # of tiles, there's something wrong with the level and it needs correcting
 		if (LEVELS[levelIdx].length % 2 !== 0) {
 			console.log('odd # of tiles');
 			return [];
 		}
 
+		let nextLevel: Array<TilePosition> = [];
+		let tempLevel = [...LEVELS[levelIdx]];
 		const getEmptyPositions = (): Array<TilePosition> => tempLevel.filter(pos => isPositionFree(pos, tempLevel));
 		let nextSizeX = 0;
 		
