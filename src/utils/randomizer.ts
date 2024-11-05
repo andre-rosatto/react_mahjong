@@ -36,7 +36,7 @@ export default class Randomizer {
 	 * Gets the initial seed.
 	 * @returns The initial seed.
 	 */
-	public get seed() : number {
+	public get seed(): number {
 		return this._seed;
 	}
 
