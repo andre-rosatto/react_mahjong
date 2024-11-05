@@ -27,11 +27,11 @@ type ModalType = null | 'confirm' | 'help';
  * @param onRestart Callback function to be callled when the player restarts the level.
  */
 export default function Game({tileset, level, seed, date, onGameEnd, onRestart}: BoardProps) {
-	const randomizer = useMemo(() => new Randomizer(seed), [seed]);
+	const randomizer = useMemo<Randomizer>(() => new Randomizer(seed), [seed]);
   const [selectedId, setSelectedId] = useState<null | number>(null);
 	const [tiles, setTiles] = useState<Array<TileData>>(getTiles());
 	const [modal, setModal] = useState<ModalType>(null);
-	const sizeX = useMemo(() => Math.max(...tiles.map(tile => tile.pos.x)) + 1, [tiles]);
+	const sizeX = useMemo<number>(() => Math.max(...tiles.map(tile => tile.pos.x)) + 1, [tiles]);
 
 	/**
 	 * Gets the tile collection in a way that is always possible to win.

@@ -37,7 +37,7 @@ export function isPositionFree(pos: TilePosition, level: Array<TilePosition>): b
 
 export default function App() {
 	const [status, setStatus] = useState<GameStatus>('');
-	const level = useMemo(() => {
+	const level = useMemo<TilePosition[]>(() => {
 		// shuffles the level
 		const levelIdx = Math.floor(randomizer.next() * LEVELS.length);
 		
