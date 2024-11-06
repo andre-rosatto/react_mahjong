@@ -4,7 +4,7 @@ import Tile, { TileStatus } from "./Tile";
 import { isPositionFree } from "../App";
 import Infobar from "./Infobar";
 import { Modal } from "./Modal";
-import Randomizer from "../utils/randomizer";
+import { useRandom } from "../hooks/useRandom";
 
 export interface BoardProps {
 	tileset: string;
@@ -27,7 +27,7 @@ type ModalType = null | 'confirm' | 'help';
  * @param onRestart Callback function to be callled when the player restarts the level.
  */
 export default function Game({tileset, level, seed, date, onGameEnd, onRestart}: BoardProps) {
-	const randomizer = useMemo<Randomizer>(() => new Randomizer(seed), [seed]);
+	const { nextRandom, setSeed } = useRandom(seed);
   const [selectedId, setSelectedId] = useState<null | number>(null);
 	const [tiles, setTiles] = useState<Array<TileData>>(getTiles());
 	const [modal, setModal] = useState<ModalType>(null);
@@ -41,7 +41,7 @@ export default function Game({tileset, level, seed, date, onGameEnd, onRestart}:
 		const tempCodes: number[] = Array.from({length: Math.floor(level.length / 2)}, (_, idx) => idx % 36);
 		const codes: number[] = [];
 		do {
-			codes.push(tempCodes.splice(Math.floor(randomizer.next() * tempCodes.length), 1)[0]);
+			codes.push(tempCodes.splice(Math.floor(nextRandom() * tempCodes.length), 1)[0]);
 		} while (tempCodes.length > 0);
 
 		const nextTiles = level.map((pos, idx) => {
@@ -147,7 +147,7 @@ export default function Game({tileset, level, seed, date, onGameEnd, onRestart}:
 	 */
 	const restartLevel = (): void => {
 		setSelectedId(null);
-		randomizer.reset();
+		setSeed(seed);
 		setTiles(getTiles());
 		onRestart();
 	}
