@@ -1,7 +1,7 @@
 import { TilePosition } from "../typings/types";
 
 const LEVELS: Array<Array<TilePosition>> = [
-	// 7 pyramids
+	// 0. 7 pyramids
 	[
 		// layer 0
 		{ x: 0, y: 0, layer: 0 },
@@ -171,7 +171,7 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 9.5, y: 6.5, layer: 3 },
 	],
 
-	// 8 stacks
+	// 1. 8 stacks
 	[
 		// layer 0
 		{ x: 0.5, y: 0, layer: 0 },
@@ -357,7 +357,7 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 8, y: 5, layer: 4 },
 	],
 
-	// big hole
+	// 2. big hole
 	[
 		// layer 0
 		{ x: 0, y: 0, layer: 0 },
@@ -529,7 +529,7 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 7, y: 5, layer: 3 },
 	],
 
-	// bizarre
+	// 3. bizarre
 	[
 		// layer 0
 		{ x: 0, y: 0, layer: 0 },
@@ -705,7 +705,7 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 4.5, y: 4.5, layer: 3 },
 	],
 
-	// cross
+	// 4. cross
 	[
 		// layer 0
 		{ x: 2, y: 0, layer: 0 },
@@ -878,7 +878,7 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 6, y: 5, layer: 3 },
 	],
 	
-	// castle
+	// 5. castle
 	[
 		// layer 0
 		{ x: 0, y: 0, layer: 0 },
@@ -1058,7 +1058,7 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 3, y: 3, layer: 4 },
 	],
 
-	// deep well
+	// 6. deep well
 	[
 		// layer 0
 		{ x: 1, y: 0, layer: 0 },
@@ -1236,7 +1236,7 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 5, y: 5, layer: 4 },
 	],
 	
-	// hurdles
+	// 7. hurdles
 	[
 		{ x: 0, y: 0, layer: 0 },
 		{ x: 0, y: 1, layer: 0 },
@@ -1403,7 +1403,7 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 7, y: 7, layer: 2 },
 	],
 
-	// kumo
+	// 8. kumo
 	[
 		// layer 0
 		{ x: 0, y: 0, layer: 0 },
@@ -1570,7 +1570,7 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 0, y: 8, layer: 3 },
 	],
 
-	// kyodai 17
+	// 9. kyodai 17
 	[
 		// layer 0
 		{ x: 0, y: 0, layer: 0 },
@@ -1581,8 +1581,8 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 5, y: 0, layer: 0 },
 		{ x: 6, y: 0, layer: 0 },
 		{ x: 7, y: 0, layer: 0 },
-		{ x: 8.5, y: 0, layer: 0 },
-		{ x: 9.5, y: 0, layer: 0 },
+		{ x: 8, y: 0, layer: 0 },
+		{ x: 9, y: 0, layer: 0 },
 		
 		{ x: 0, y: 1, layer: 0 },
 		{ x: 0, y: 2, layer: 0 },
@@ -1590,8 +1590,8 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 3, y: 2, layer: 0 },
 		{ x: 6, y: 1, layer: 0 },
 		{ x: 6, y: 2, layer: 0 },
-		{ x: 9.5, y: 1, layer: 0 },
-		{ x: 9.5, y: 2, layer: 0 },
+		{ x: 9, y: 1, layer: 0 },
+		{ x: 9, y: 2, layer: 0 },
 
 		{ x: 0, y: 3, layer: 0 },
 		{ x: 1, y: 3, layer: 0 },
@@ -1601,8 +1601,8 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 5, y: 3, layer: 0 },
 		{ x: 6, y: 3, layer: 0 },
 		{ x: 7, y: 3, layer: 0 },
-		{ x: 8.5, y: 3, layer: 0 },
-		{ x: 9.5, y: 3, layer: 0 },
+		{ x: 8, y: 3, layer: 0 },
+		{ x: 9, y: 3, layer: 0 },
 				
 		{ x: 0, y: 4, layer: 0 },
 		{ x: 0, y: 5, layer: 0 },
@@ -1610,8 +1610,8 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 3, y: 5, layer: 0 },
 		{ x: 6, y: 4, layer: 0 },
 		{ x: 6, y: 5, layer: 0 },
-		{ x: 9.5, y: 4, layer: 0 },
-		{ x: 9.5, y: 5, layer: 0 },
+		{ x: 9, y: 4, layer: 0 },
+		{ x: 9, y: 5, layer: 0 },
 		
 		{ x: 0, y: 6, layer: 0 },
 		{ x: 1, y: 6, layer: 0 },
@@ -1621,8 +1621,8 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 5, y: 6, layer: 0 },
 		{ x: 6, y: 6, layer: 0 },
 		{ x: 7, y: 6, layer: 0 },
-		{ x: 8.5, y: 6, layer: 0 },
-		{ x: 9.5, y: 6, layer: 0 },
+		{ x: 8, y: 6, layer: 0 },
+		{ x: 9, y: 6, layer: 0 },
 
 		// layer 1
 		{ x: 0, y: 0, layer: 1 },
@@ -1633,8 +1633,8 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 5, y: 0, layer: 1 },
 		{ x: 6, y: 0, layer: 1 },
 		{ x: 7, y: 0, layer: 1 },
-		{ x: 8.5, y: 0, layer: 1 },
-		{ x: 9.5, y: 0, layer: 1 },
+		{ x: 8, y: 0, layer: 1 },
+		{ x: 9, y: 0, layer: 1 },
 		
 		{ x: 0, y: 1, layer: 1 },
 		{ x: 0, y: 2, layer: 1 },
@@ -1642,8 +1642,8 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 3, y: 2, layer: 1 },
 		{ x: 6, y: 1, layer: 1 },
 		{ x: 6, y: 2, layer: 1 },
-		{ x: 9.5, y: 1, layer: 1 },
-		{ x: 9.5, y: 2, layer: 1 },
+		{ x: 9, y: 1, layer: 1 },
+		{ x: 9, y: 2, layer: 1 },
 
 		{ x: 0, y: 3, layer: 1 },
 		{ x: 1, y: 3, layer: 1 },
@@ -1653,8 +1653,8 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 5, y: 3, layer: 1 },
 		{ x: 6, y: 3, layer: 1 },
 		{ x: 7, y: 3, layer: 1 },
-		{ x: 8.5, y: 3, layer: 1 },
-		{ x: 9.5, y: 3, layer: 1 },
+		{ x: 8, y: 3, layer: 1 },
+		{ x: 9, y: 3, layer: 1 },
 				
 		{ x: 0, y: 4, layer: 1 },
 		{ x: 0, y: 5, layer: 1 },
@@ -1662,8 +1662,8 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 3, y: 5, layer: 1 },
 		{ x: 6, y: 4, layer: 1 },
 		{ x: 6, y: 5, layer: 1 },
-		{ x: 9.5, y: 4, layer: 1 },
-		{ x: 9.5, y: 5, layer: 1 },
+		{ x: 9, y: 4, layer: 1 },
+		{ x: 9, y: 5, layer: 1 },
 		
 		{ x: 0, y: 6, layer: 1 },
 		{ x: 1, y: 6, layer: 1 },
@@ -1673,8 +1673,8 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 5, y: 6, layer: 1 },
 		{ x: 6, y: 6, layer: 1 },
 		{ x: 7, y: 6, layer: 1 },
-		{ x: 8.5, y: 6, layer: 1 },
-		{ x: 9.5, y: 6, layer: 1 },
+		{ x: 8, y: 6, layer: 1 },
+		{ x: 9, y: 6, layer: 1 },
 
 		// layer 2
 		{ x: 0, y: 0, layer: 2 },
@@ -1685,8 +1685,8 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 5, y: 0, layer: 2 },
 		{ x: 6, y: 0, layer: 2 },
 		{ x: 7, y: 0, layer: 2 },
-		{ x: 8.5, y: 0, layer: 2 },
-		{ x: 9.5, y: 0, layer: 2 },
+		{ x: 8, y: 0, layer: 2 },
+		{ x: 9, y: 0, layer: 2 },
 		
 		{ x: 0, y: 1, layer: 2 },
 		{ x: 0, y: 2, layer: 2 },
@@ -1694,8 +1694,8 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 3, y: 2, layer: 2 },
 		{ x: 6, y: 1, layer: 2 },
 		{ x: 6, y: 2, layer: 2 },
-		{ x: 9.5, y: 1, layer: 2 },
-		{ x: 9.5, y: 2, layer: 2 },
+		{ x: 9, y: 1, layer: 2 },
+		{ x: 9, y: 2, layer: 2 },
 
 		{ x: 0, y: 3, layer: 2 },
 		{ x: 1, y: 3, layer: 2 },
@@ -1705,8 +1705,8 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 5, y: 3, layer: 2 },
 		{ x: 6, y: 3, layer: 2 },
 		{ x: 7, y: 3, layer: 2 },
-		{ x: 8.5, y: 3, layer: 2 },
-		{ x: 9.5, y: 3, layer: 2 },
+		{ x: 8, y: 3, layer: 2 },
+		{ x: 9, y: 3, layer: 2 },
 				
 		{ x: 0, y: 4, layer: 2 },
 		{ x: 0, y: 5, layer: 2 },
@@ -1714,8 +1714,8 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 3, y: 5, layer: 2 },
 		{ x: 6, y: 4, layer: 2 },
 		{ x: 6, y: 5, layer: 2 },
-		{ x: 9.5, y: 4, layer: 2 },
-		{ x: 9.5, y: 5, layer: 2 },
+		{ x: 9, y: 4, layer: 2 },
+		{ x: 9, y: 5, layer: 2 },
 		
 		{ x: 0, y: 6, layer: 2 },
 		{ x: 1, y: 6, layer: 2 },
@@ -1725,19 +1725,19 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 5, y: 6, layer: 2 },
 		{ x: 6, y: 6, layer: 2 },
 		{ x: 7, y: 6, layer: 2 },
-		{ x: 8.5, y: 6, layer: 2 },
-		{ x: 9.5, y: 6, layer: 2 },
+		{ x: 8, y: 6, layer: 2 },
+		{ x: 9, y: 6, layer: 2 },
 		
 		// layer 3
 		{ x: 0, y: 0, layer: 3 },
-		{ x: 9.5, y: 0, layer: 3 },
+		{ x: 9, y: 0, layer: 3 },
 		{ x: 4, y: 3, layer: 3 },
 		{ x: 5, y: 3, layer: 3 },
 		{ x: 0, y: 6, layer: 3 },
-		{ x: 9.5, y: 6, layer: 3 },
+		{ x: 9, y: 6, layer: 3 },
 	],
 
-	// kyodai 19
+	// 10. kyodai 19
 	[
 		// layer 0
 		{ x: 0, y: 0, layer: 0 },
@@ -1912,7 +1912,7 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 5, y: 5, layer: 3 },
 	],
 
-	// kyodai 24
+	// 11. kyodai 24
 	[
 		// layer 0
 		{ x: 0, y: 0, layer: 0 },
@@ -2088,7 +2088,7 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 4.5, y: 3.5, layer: 4 },
 	],
 
-	// pyramid
+	// 12. pyramid
 	[
 		// layer 0
 		{ x: 0, y: 0, layer: 0 },
@@ -2255,7 +2255,7 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 6, y: 5, layer: 3 },
 	],
 
-	// pyramid 1
+	// 13. pyramid 1
 	[
 		// layer 0
 		{ x: 3, y: 0, layer: 0 },
@@ -2426,7 +2426,7 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 7, y: 3.5, layer: 3 },
 	],
 
-	// pyramid 2
+	// 14. pyramid 2
 	[
 		// layer 0
 		{ x: 2, y: 0, layer: 0 },
@@ -2604,7 +2604,7 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 5, y: 4, layer: 4 },
 	],
 
-	// quad
+	// 15. quad
 	[
 		// layer 0
 		{ x: 0, y: 0, layer: 0 },
@@ -2774,7 +2774,7 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 7, y: 5, layer: 3 },
 	],
 
-	// rectangle
+	// 16. rectangle
 	[
 		// layer 0
 		{ x: 0, y: 0, layer: 0 },
@@ -2941,7 +2941,7 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 8, y: 3, layer: 3 },
 	],
 	
-	// space shuttle
+	// 17. space shuttle
 	[
 		// layer 0
 		{ x: 4, y: 0, layer: 0 },
@@ -3121,7 +3121,7 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 5, y: 6, layer: 4 },
 	],
 
-	// stage 1
+	// 18. stage 1
 	[
 		// layer 0
 		{ x: 2, y: 0, layer: 0 },
@@ -3295,7 +3295,7 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 7, y: 3.5, layer: 3 },
 	],
 
-	// stairs 2
+	// 19. stairs 2
 	[
 		// layer 0
 		{ x: 0, y: 0, layer: 0 },
@@ -3470,7 +3470,7 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 2, y: 5, layer: 3 },
 	],
 
-	// temple 1
+	// 20. temple 1
 	[
 		// layer 0
 		{ x: 0, y: 0, layer: 0 },
@@ -3637,7 +3637,7 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 6.5, y: 2, layer: 4 },
 	],
 
-	// temple 2
+	// 21. temple 2
 	[
 		// layer 0
 		{ x: 0.5, y: 0, layer: 0 },
@@ -3804,7 +3804,7 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 6.5, y: 3, layer: 3 },
 	],
 		
-	// well 2
+	// 22. well 2
 	[
 		// layer 0
 		{ x: 0, y: 0, layer: 0 },
@@ -3981,7 +3981,7 @@ const LEVELS: Array<Array<TilePosition>> = [
 		{ x: 5, y: 6, layer: 3 },
 	],
 		
-	// x-shape
+	// 23. x-shape
 	[
 		// layer 0
 		{ x: 0, y: 0, layer: 0 },
